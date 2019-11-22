@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'users',
+  database : 'airlinems',
   clearExpired: true //auto remove expired session tuples from db 
 });
 
@@ -22,6 +22,7 @@ var user='fahad';
 var pass='123456';
 module.exports.connection=connection;
 var UserPrototype=require("./controllers/user.js").UserPrototype;
+var airlinePrototype=require("./controllers/airline.js").airlinePrototype;
 const app=exp();
 
 app.set('view engine', 'ejs');
@@ -74,6 +75,20 @@ res.render("airlineSignup.ejs");
 app.get("/addFlight",(req,res)=>{
 res.render("addflight.ejs");
 }); //Css or bootstrap
+app.post("/addFlight",(req,res)=>{
+	airlinePrototype.addFlightRequest(12345,'Karachi','Ontario','11/12/19 4:00pm').then((info)=>{
+     console.log("Request for flight add made successfully");
+     
+	}).catch((msg)=>{
+
+		console.log("Request for flight add Failed");
+		console.log(msg);
+
+	});
+	res.redirect('/addflight');
+//res.render("addflight.ejs");
+}); //Css or bootstrap
+
 app.get("/cancelFlight",(req,res)=>{
 res.render("cancelflight.ejs");
 });
@@ -93,23 +108,30 @@ res.redirect('/');
 
 
 
-function Flight(flightNo,departure,arrival,duration,price){
-	this.flightNo=flightNo;
-	this.departure=departure;
-	this.arrival=arrival;
-	this.duration=duration;
+function Flight(FLIGHT_int,SOURCE,DESTINATION,DEPARTURE_Date,price,AIRPLANE_ID){
+	this.FLIGHT_int=FLIGHT_int;
+	this.SOURCE=SOURCE;
+	this.DESTINATION=DESTINATION;
+	this.DEPARTURE_Date=DEPARTURE_Date;
+	this.AIRPLANE_ID=AIRPLANE_ID;
 	this.price=price;
 }
-var flightObj=new Flight('pk301','pakistan 1:30pm','Canada 3:30pm','6:00pm','Pkr100,0000');
-var flightArr=[flightObj];
-flightArr.push(flightObj);
-flightArr.push(flightObj);
-flightArr.push(flightObj);
 
+app.get('/SearchFlights',(req,res)=>{
+UserPrototype.searchFlights("islamabad","ontario","2019-11-20").then((result)=>{
+	var flightArr_local=[];
+	for (var i = 0; i < result.length; i++) {
+	var flightObj_local=new Flight(result[i].FLIGHT_int,result[i].SOURCE,result[i].DESTINATION,result[i].DEPARTURE_Date,result[i].AIRPLANE_ID,
+		result[i].price);
+	flightArr_local.push(flightObj_local);
+	}
+	res.render('test_search.ejs',{ssData:flightArr_local});
+console.log(result);
+}).catch((error)=>{
+	res.redirect('/');
+	console.log(error);
+});
 
-app.get('/searchFlights',(req,res)=>{
-	console.log(req.query.to);
-res.render('test_search.ejs',{ssData:flightArr});
 });
 
 function flightReq(flightNumber,source,destination,startTime,stay){

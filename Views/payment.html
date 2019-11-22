@@ -1,0 +1,85 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../public/styles/payment.css">
+</head>
+
+
+<body>
+    <div class="sidebar">
+        <a href="#home">Home</a>
+        <a class="signout" href="#home">Signout</a>
+        <a href="#reservations">Reservations</a>
+        
+        <a href="#help">Help</a>
+        
+      </div>
+      
+      <!-- Page content -->
+      
+      
+      <div class="content">
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+          <div class="col-50">
+            
+           
+            <label for="fname" class="label">Accepted Cards</label>
+            <div>
+                <img src="../public/assets/1.jpg" alt="" height="80px">
+                <img src="../public/assets/2.png" alt=""  height="80px" width="120px">
+                <img src="../public/assets/3.jpg" alt=""  height="80px">
+                <img src="../public/assets/4.png" alt=""  height="80px">
+            </div>
+            
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <label for="expmonth">Exp Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+  
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <input type="text" id="expyear" name="expyear" placeholder="2018">
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="352">
+              </div>
+            </div>
+          </div>
+          <label>
+              <input type="checkbox" checked="checked" name="sameadr"> Confirm
+            </label>
+            <input type="submit" value="Pay" class="btn">
+      </div>
+
+     
+     
+     
+     
+     
+      
+</body>
+</html>

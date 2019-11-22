@@ -45,6 +45,18 @@ if(results[0].username)
 
 });//outer query ends here
 });
+},
+searchFlights:(from,to,departTime)=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../app.js").connection;
+	connection.query(`SELECT * from flight where lower(flight.SOURCE) like \"${from}\"
+and lower(flight.DESTINATION) like \"${to}\" and flight.DEPARTURE_Date>=STR_TO_DATE(\"${departTime}\", \"%Y-%m-%d\")`,(error, results, fields)=>{
+	if(results[0].flight_int!="")
+		resolve(results);
+	else
+		reject('unable to fetch details');
+	});
+});
 }
 };
 
