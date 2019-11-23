@@ -46,15 +46,41 @@ if(results[0].username)
 });//outer query ends here
 });
 },
-searchFlights:(from,to,departTime)=>{
+searchFlights:(from,to,departTime,userSeats)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../app.js").connection;
-	connection.query(`SELECT * from flight where lower(flight.SOURCE) like \"${from}\"
-and lower(flight.DESTINATION) like \"${to}\" and flight.DEPARTURE_Date>=STR_TO_DATE(\"${departTime}\", \"%Y-%m-%d\")`,(error, results, fields)=>{
-	if(results[0].flight_int!="")
+	
+	connection.query(`SELECT * from flight,flight_class where flight.FLIGHT_NUMBER=flight_class.FLIGHT_NUMBER and lower(flight.FLIGHT_SOURCE) like \"${from}\" and lower(flight.FLIGHT_DESTINATION) like \"${to}\" 
+		and flight.DEPARTURE_TIME>=STR_TO_DATE(\"${departTime}\", \"%Y-%m-%d\") and flight_class.NO_OF_SEATS>=${userSeats}
+`,(error, results, fields)=>{
+			console.log("results are:");
+			
+	if(results!=undefined)
+		{//if(results[0].flight_int!="")
+	
 		resolve(results);
+	}
 	else
-		reject('unable to fetch details');
+		reject("unable to fetch error:"+error);
+	});
+});
+},
+searchFlightByClass: (FLIGHT_int,from,to,departTime,userSeats,flight_class)=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../app.js").connection;
+	
+	connection.query(`SELECT * from flight,flight_class where flight.FLIGHT_int=flight_class.FLIGHT_int and 
+   	lower(flight.SOURCE) like \"islamabad\" and lower(flight.DESTINATION) like \"ontario\" 
+		and flight.DEPARTURE_Date>=STR_TO_DATE(\"2019-11-20\", \"%Y-%m-%d\") 
+		and flight_class.NO_OF_SEATS>=14 and flight_class.FLIGHT_CLASS=\"economy\" 
+		and flight.FLIGHT_NUMBER=\"${result[i].FLIGHT_int}\"`,(error, results, fields)=>{
+	if(results!=null)
+		{//if(results[0].flight_int!="")
+	console.log("searchFlightByClass results:"+results);
+		resolve(results);
+	}
+	else
+		reject("unable to fetch error:"+error);
 	});
 });
 }

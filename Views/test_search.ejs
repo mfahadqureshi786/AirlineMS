@@ -102,12 +102,10 @@
 			<div class="table-cell">
 			<p>Arrival </p>
 		</div>
-	    <div class="table-cell">
-			<p>Duration</p>
-		</div>
 		<div class="table-cell">
-			<p>Price</p>
+			<p>Class,Seats and Price</p>
 		</div>
+		
 		<div class="table-cell">
 			<p>Selection</p>
 		</div>
@@ -117,25 +115,22 @@
 	<% for(i=0;i<ssData.length;i++) { %>
 		 <div class="table-row"> 
 		 <div class="table-cell"> 
-			<p><img src="../public/assets/airlines/AC.png"></p> 
+			<p><img src="assets/airlines/AC.png"></p> 
 			 <p>Air canada</p> 
 			 </div> 
 			 <div class="table-cell"> 
-					<p> <%= ssData[i].FLIGHT_int %> </p> 
+					<p> <%= ssData[i].FLIGHT_NUMBER %> </p> 
 				 </div> 
 					<div class="table-cell"> 
-						<p><%= ssData[i].SOURCE+" "+ ssData[i].DEPARTURE_Date%></p> 
+						<p><%= ssData[i].FLIGHT_SOURCE+" "+ ssData[i].DEPARTURE_TIME%></p> 
 					 </div> 
 						<div class="table-cell"> 
-							<p> <%= ssData[i].DESTINATION %> </p> 
+							<p> <%= ssData[i].FLIGHT_DESTINATION %> </p> 
 						 </div> 
 						 <div class="table-cell"> 
-								<p>  duration %> </p> 
+								<p> <%= ssData[i].FLIGHT_CLASS %> </br> Seats: <%= ssData[i].NO_OF_SEATS %> </br> Price: <%= ssData[i].PRICE %> </p> 
 							 </div> 
-							 <div class="table-cell"> 
-								 <p> Price </p> 
-			
-								 </div> 
+						
 								 <div class="table-cell"> 
 									 <button class="btn btn-danger">Select</button> 
 			

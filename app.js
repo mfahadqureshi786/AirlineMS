@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'airlinems',
+  database : 'arilinemsnew',
   clearExpired: true //auto remove expired session tuples from db 
 });
 
@@ -104,35 +104,47 @@ UserPrototype.exist(req.body.user).then((val)=>{
 	}).catch((msg)=>{console.log(msg);
 res.redirect('/');
 	});
-})
+});
 
 
 
-function Flight(FLIGHT_int,SOURCE,DESTINATION,DEPARTURE_Date,price,AIRPLANE_ID){
-	this.FLIGHT_int=FLIGHT_int;
-	this.SOURCE=SOURCE;
-	this.DESTINATION=DESTINATION;
-	this.DEPARTURE_Date=DEPARTURE_Date;
+function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AIRPLANE_ID,FLIGHT_CLASS,NO_OF_SEATS,PRICE){
+	this.FLIGHT_NUMBER=FLIGHT_NUMBER;
+	this.FLIGHT_SOURCE=FLIGHT_SOURCE;
+	this.FLIGHT_DESTINATION=FLIGHT_DESTINATION;
+	this.DEPARTURE_TIME=DEPARTURE_TIME;
 	this.AIRPLANE_ID=AIRPLANE_ID;
-	this.price=price;
+	this.FLIGHT_CLASS=FLIGHT_CLASS;
+	this.NO_OF_SEATS=NO_OF_SEATS;
+	this.PRICE=PRICE;
 }
 
 app.get('/SearchFlights',(req,res)=>{
-UserPrototype.searchFlights("islamabad","ontario","2019-11-20").then((result)=>{
+	console.log("at search flight route");
 	var flightArr_local=[];
+	var totalMembers=parseInt(req.query.adults)+parseInt(req.query.children)+parseInt(req.query.infants);
+
+      var str=req.query.depart[0];
+      var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+  
+	 UserPrototype.searchFlights(req.query.from[0],req.query.to[0],fdate,totalMembers).then((result)=>{
+	
+	
+
 	for (var i = 0; i < result.length; i++) {
-	var flightObj_local=new Flight(result[i].FLIGHT_int,result[i].SOURCE,result[i].DESTINATION,result[i].DEPARTURE_Date,result[i].AIRPLANE_ID,
-		result[i].price);
+       
+	var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,result[i].DEPARTURE_TIME,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
 	flightArr_local.push(flightObj_local);
 	}
+	
 	res.render('test_search.ejs',{ssData:flightArr_local});
-console.log(result);
 }).catch((error)=>{
 	res.redirect('/');
 	console.log(error);
 });
 
 });
+
 
 function flightReq(flightNumber,source,destination,startTime,stay){
 	this.flightNo=flightNumber;
