@@ -28,10 +28,13 @@ const app=exp();
 app.set('view engine', 'ejs');
 app.use(exp.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+var tempId;
 app.use(session({
 	genid: (req) => {
-    console.log('Creating session Id')
-    return uuid(); // use UUIDs for session IDs
+		tempId=uuid();
+		//req.session.id=tempId;
+    console.log('Creating session Id:'+tempId);
+    return tempId; // use UUIDs for session IDs
   },
 	name:'Session-Cookie',
   secret: 'keyboard cat',
@@ -44,6 +47,8 @@ app.use(session({
 
 app.get('/',(req,res)=>{
 console.log("at root route");
+console.log("session is:"+req.session.id);
+console.log(req.session);
 res.render('home_copy.ejs');
 });
 app.get('/login',(req,res)=>{
@@ -105,9 +110,32 @@ UserPrototype.exist(req.body.user).then((val)=>{
 res.redirect('/');
 	});
 });
+app.get('/myTripData',(req,res)=>{
+res.setHeader('Content-Type', 'application/json');
+var obj={trip_type:req.session.trip_type,tripData:req.session.trip_Data,members:req.session.members};
+res.end(JSON.stringify(obj));
 
+});
+app.get('/flightData/:from/:to/:depart/:members',(req,res)=>{
+	var flightArr_local=[];
+	var str=req.params.depart;
+      var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(str.length-7, str.length-5)+'-'+str.substring(0, 2);
+      console.log(req.params.from+req.params.to+fdate+req.params.members);
+	 UserPrototype.searchFlights(req.params.from,req.params.to,fdate,req.params.members).then((result)=>{
+	for (var i = 0; i < result.length; i++) {
+       
+	var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,result[i].DEPARTURE_TIME,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
+	flightArr_local.push(flightObj_local);
+	}
+	res.setHeader('Content-Type', 'application/json');
+	
+	res.end(JSON.stringify(flightArr_local));
+}).catch((error)=>{
+	res.redirect('/');
+	console.log(error);
+});
 
-
+});
 function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AIRPLANE_ID,FLIGHT_CLASS,NO_OF_SEATS,PRICE){
 	this.FLIGHT_NUMBER=FLIGHT_NUMBER;
 	this.FLIGHT_SOURCE=FLIGHT_SOURCE;
@@ -118,10 +146,44 @@ function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AI
 	this.NO_OF_SEATS=NO_OF_SEATS;
 	this.PRICE=PRICE;
 }
-
+app.get('/payment',(req,res)=>{
+res.render('payment.ejs');
+});
 app.get('/SearchFlights',(req,res)=>{
 	console.log("at search flight route");
 	var flightArr_local=[];
+	var trip_type=req.query.exampleRadios;
+	if(trip_type=="oneWay")
+	{
+		req.session.trip_type=trip_type;
+		req.session.trip_Data=[];
+var obj={from:req.query.from[0],to:req.query.to[0],depart:req.query.depart[0]};
+req.session.trip_Data.push(obj);
+	}
+	if(trip_type=="roundTrip")
+	{
+req.session.trip_type=trip_type;
+req.session.trip_Data=[];
+var obj={from:req.query.from[0],to:req.query.to[0],depart:req.query.depart[0]};
+req.session.trip_Data.push(obj);
+obj={from:req.query.to[0],to:req.query.from[0],depart:req.query.return};
+req.session.trip_Data.push(obj);
+
+	}
+	if(trip_type=="multiCity")
+	{
+req.session.trip_type=trip_type;
+req.session.trip_Data=[];
+var obj={from:req.query.from[0],to:req.query.to[0],depart:req.query.depart[0]};
+req.session.trip_Data.push(obj);
+obj={from:req.query.from[1],to:req.query.to[1],depart:req.query.depart[1]};
+req.session.trip_Data.push(obj);
+obj={from:req.query.from[2],to:req.query.to[2],depart:req.query.depart[2]};
+req.session.trip_Data.push(obj);
+	}
+  	req.session.members={adults:parseInt(req.query.adults),children:parseInt(req.query.children),infants:parseInt(req.query.infants)};
+
+
 	var totalMembers=parseInt(req.query.adults)+parseInt(req.query.children)+parseInt(req.query.infants);
 
       var str=req.query.depart[0];
@@ -137,7 +199,8 @@ app.get('/SearchFlights',(req,res)=>{
 	flightArr_local.push(flightObj_local);
 	}
 	
-	res.render('test_search.ejs',{ssData:flightArr_local});
+	res.render('test_search.ejs',{ssData:flightArr_local,trip_type:req.session.trip_type
+		,trip_Data:req.session.trip_Data,members:req.session.members});
 }).catch((error)=>{
 	res.redirect('/');
 	console.log(error);

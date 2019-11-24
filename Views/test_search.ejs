@@ -20,6 +20,11 @@
 			margin: 50px auto;
 			
 		}
+		.ticketSelected{
+		border-top:3px solid red;
+		border-bottom:3px solid red;
+		}
+
 		.table-row{
 			width: 80%;
 			margin: 10px auto;
@@ -87,8 +92,25 @@
   </div>
 </nav>  
 <h3><a href="/">Search again</a></h3>
+<div class="table-row">
+		
+		 <div class="table-cell ticketSelected"> 
+			<p> <%=  trip_Data[0].from +'-->'+trip_Data[0].to %> </p>
+		</div>
+		<% if(trip_type=="roundTrip" || trip_type=="multiCity") {%>
+		<div class="table-cell">
+			<p> <%=  trip_Data[1].from +'-->'+trip_Data[1].to %> </p>
+		</div>
+		<% } %>
+		<% if(trip_type=="multiCity") {%>
+			<div class="table-cell">
+			<p> <%=  trip_Data[2].from +'-->'+trip_Data[2].to %> </p>
+		</div>
+		<% }%>
+	</div>
 
 <div class="table-box">
+
 	<div class="table-row table-head">
 		<div class="table-cell">
 			<p>Airline</p>
@@ -132,7 +154,7 @@
 							 </div> 
 						
 								 <div class="table-cell"> 
-									 <button class="btn btn-danger">Select</button> 
+									 <button class="btn btn-danger" onclick="showNextFlight()">Select</button> 
 			
 									 </div>	
 		
@@ -140,5 +162,33 @@
 									 <% } %>
 									
 </div>
+<script>
 
+var response;
+ var xhttp=new XMLHttpRequest();
+  xhttp.open("GET","/myTripData",true);
+  xhttp.onreadystatechange=()=>{
+  if(xhttp.readyState==4 && xhttp.status==200){
+  console.log("Response is:");
+  response=JSON.parse(xhttp.responseText);
+  console.log(response.trip_type);
+  if(response.trip_type=='oneWay')
+  {
+   //show oneway data
+  }
+}}
+  xhttp.send(); 
+
+
+
+function showNextFlight()
+{
+    //select next trip if exists
+	if(response.trip_type=='oneWay')
+  {
+   window.location.href = "http://localhost:3000/payment";
+  }
+
+}
+</script>
 <%- include ./partials/footer.ejs %>
