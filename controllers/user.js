@@ -50,8 +50,12 @@ searchFlights:(from,to,departTime,userSeats)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../app.js").connection;
 	
-	connection.query(`SELECT * from flight,flight_class where flight.FLIGHT_NUMBER=flight_class.FLIGHT_NUMBER and lower(flight.FLIGHT_SOURCE) like \"${from}\" and lower(flight.FLIGHT_DESTINATION) like \"${to}\" 
-		and flight.DEPARTURE_TIME>=STR_TO_DATE(\"${departTime}\", \"%Y-%m-%d\") and flight_class.NO_OF_SEATS>=${userSeats}
+	connection.query(`SELECT * from flight,flight_class where flight.FLIGHT_NUMBER=flight_class.FLIGHT_NUMBER 
+		and flight.DEPARTURE_TIME=flight_class.DEPARTURE_TIME
+		and lower(flight.FLIGHT_SOURCE) like \"${from}\" 
+		and lower(flight.FLIGHT_DESTINATION) like \"${to}\" 
+		and flight.DEPARTURE_TIME>=STR_TO_DATE(\"${departTime}\", \"%Y-%m-%d\") and flight_class.NO_OF_SEATS>=${userSeats} 
+
 `,(error, results, fields)=>{
 			console.log("results are:");
 			

@@ -94,6 +94,16 @@ app.post("/addFlight",(req,res)=>{
 //res.render("addflight.ejs");
 }); //Css or bootstrap
 
+function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AIRPLANE_ID,FLIGHT_CLASS,NO_OF_SEATS,PRICE){
+	this.FLIGHT_NUMBER=FLIGHT_NUMBER;
+	this.FLIGHT_SOURCE=FLIGHT_SOURCE;
+	this.FLIGHT_DESTINATION=FLIGHT_DESTINATION;
+	this.DEPARTURE_TIME=DEPARTURE_TIME;
+	this.AIRPLANE_ID=AIRPLANE_ID;
+	this.FLIGHT_CLASS=FLIGHT_CLASS;
+	this.NO_OF_SEATS=NO_OF_SEATS;
+	this.PRICE=PRICE;
+}
 app.get("/cancelFlight",(req,res)=>{
 res.render("cancelflight.ejs");
 });
@@ -113,13 +123,32 @@ res.redirect('/');
 app.get('/myTripData',(req,res)=>{
 res.setHeader('Content-Type', 'application/json');
 var obj={trip_type:req.session.trip_type,tripData:req.session.trip_Data,members:req.session.members};
+
 res.end(JSON.stringify(obj));
 
 });
+
+var selectedFlights=[];
+
+app.get('/saveFlight/:option/:FLIGHT_NUMBER/:departTime/:class',(req,res)=>{
+console.log("at save flight route");
+var ticketSelectedNo=parseInt(req.params.option);
+console.log("ticketSelected no"+ticketSelectedNo);
+console.log("fdate:"+req.params.departTime);
+var obj={FLIGHT_NUMBER:req.params.FLIGHT_NUMBER,departTime:req.params.departTime,class:req.params.class};
+selectedFlights[ticketSelectedNo]=obj;
+req.session.selectedFlights=selectedFlights;
+console.log("selected flights:");
+console.log(req.session.selectedFlights);
+res.send(JSON.stringify({}));
+});
+
 app.get('/flightData/:from/:to/:depart/:members',(req,res)=>{
 	var flightArr_local=[];
 	var str=req.params.depart;
-      var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(str.length-7, str.length-5)+'-'+str.substring(0, 2);
+      //var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(str.length-7, str.length-5)+'-'+str.substring(0, 2);
+      var fdate=str;
+
       console.log(req.params.from+req.params.to+fdate+req.params.members);
 	 UserPrototype.searchFlights(req.params.from,req.params.to,fdate,req.params.members).then((result)=>{
 	for (var i = 0; i < result.length; i++) {
@@ -136,16 +165,7 @@ app.get('/flightData/:from/:to/:depart/:members',(req,res)=>{
 });
 
 });
-function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AIRPLANE_ID,FLIGHT_CLASS,NO_OF_SEATS,PRICE){
-	this.FLIGHT_NUMBER=FLIGHT_NUMBER;
-	this.FLIGHT_SOURCE=FLIGHT_SOURCE;
-	this.FLIGHT_DESTINATION=FLIGHT_DESTINATION;
-	this.DEPARTURE_TIME=DEPARTURE_TIME;
-	this.AIRPLANE_ID=AIRPLANE_ID;
-	this.FLIGHT_CLASS=FLIGHT_CLASS;
-	this.NO_OF_SEATS=NO_OF_SEATS;
-	this.PRICE=PRICE;
-}
+
 app.get('/payment',(req,res)=>{
 res.render('payment.ejs');
 });
@@ -153,20 +173,28 @@ app.get('/SearchFlights',(req,res)=>{
 	console.log("at search flight route");
 	var flightArr_local=[];
 	var trip_type=req.query.exampleRadios;
+
+
 	if(trip_type=="oneWay")
 	{
 		req.session.trip_type=trip_type;
 		req.session.trip_Data=[];
-var obj={from:req.query.from[0],to:req.query.to[0],depart:req.query.depart[0]};
+		var str=req.query.depart[0];
+      var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+var obj={from:req.query.from[0],to:req.query.to[0],depart:fdate};
 req.session.trip_Data.push(obj);
 	}
 	if(trip_type=="roundTrip")
 	{
 req.session.trip_type=trip_type;
 req.session.trip_Data=[];
-var obj={from:req.query.from[0],to:req.query.to[0],depart:req.query.depart[0]};
+var str=req.query.depart[0];
+      var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+var obj={from:req.query.from[0],to:req.query.to[0],depart:fdate};
 req.session.trip_Data.push(obj);
-obj={from:req.query.to[0],to:req.query.from[0],depart:req.query.return};
+str=req.query.return;
+fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+obj={from:req.query.to[0],to:req.query.from[0],depart:fdate};
 req.session.trip_Data.push(obj);
 
 	}
@@ -174,11 +202,21 @@ req.session.trip_Data.push(obj);
 	{
 req.session.trip_type=trip_type;
 req.session.trip_Data=[];
-var obj={from:req.query.from[0],to:req.query.to[0],depart:req.query.depart[0]};
+var str=req.query.depart[0];
+      var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+var obj={from:req.query.from[0],to:req.query.to[0],depart:fdate};
 req.session.trip_Data.push(obj);
-obj={from:req.query.from[1],to:req.query.to[1],depart:req.query.depart[1]};
+
+str=req.query.depart[1];
+fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+
+obj={from:req.query.from[1],to:req.query.to[1],depart:fdate};
 req.session.trip_Data.push(obj);
-obj={from:req.query.from[2],to:req.query.to[2],depart:req.query.depart[2]};
+
+str=req.query.depart[2];
+fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
+
+obj={from:req.query.from[2],to:req.query.to[2],depart:fdate};
 req.session.trip_Data.push(obj);
 	}
   	req.session.members={adults:parseInt(req.query.adults),children:parseInt(req.query.children),infants:parseInt(req.query.infants)};
@@ -194,9 +232,16 @@ req.session.trip_Data.push(obj);
 	
 
 	for (var i = 0; i < result.length; i++) {
-       
-	var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,result[i].DEPARTURE_TIME,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
+    var month = result[i].DEPARTURE_TIME.getMonth() + 1; //months from 1-12
+var day = result[i].DEPARTURE_TIME.getDate();
+var year =result[i].DEPARTURE_TIME.getUTCFullYear();
+
+var newdate2 = year + "-" + month + "-" + day;
+
+	var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,newdate2,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
 	flightArr_local.push(flightObj_local);
+	console.log("here it is"+result[i].FLIGHT_NUMBER);
+	console.log(newdate2);
 	}
 	
 	res.render('test_search.ejs',{ssData:flightArr_local,trip_type:req.session.trip_type
