@@ -202,6 +202,7 @@ function showNextFlight(row)
   var flightResponse;
   var xhttp=new XMLHttpRequest();
 console.log("ticket 1 index:"+row);
+
   xhttp.open("GET",`/flightData/${response.tripData[1].from}/${response.tripData[1].to}/${response.tripData[1].depart}/${response.members.adults+response.members.children+response.members.infants}`,true);
   xhttp.onreadystatechange=()=>{
   if(xhttp.readyState==4 && xhttp.status==200){
@@ -336,6 +337,11 @@ else if (cellOne==true && cellTwo==true)
   console.log(departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
   var xhttpSaveFlight=new XMLHttpRequest();
+  console.log("Depart Time in ajax");
+ var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length))+1;
+ departTime=departTime.substring(0,departTime.length-2)+myNewDate;
+   console.log(departTime);	
+
   xhttpSaveFlight.open("GET",`/saveFlight/${1}/${flightNum}/${departTime}/${myClass}`,true);
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
   {

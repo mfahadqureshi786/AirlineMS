@@ -135,6 +135,7 @@ console.log("at save flight route");
 var ticketSelectedNo=parseInt(req.params.option);
 console.log("ticketSelected no"+ticketSelectedNo);
 console.log("fdate:"+req.params.departTime);
+
 var obj={FLIGHT_NUMBER:req.params.FLIGHT_NUMBER,departTime:req.params.departTime,class:req.params.class};
 selectedFlights[ticketSelectedNo]=obj;
 req.session.selectedFlights=selectedFlights;
@@ -148,12 +149,13 @@ app.get('/flightData/:from/:to/:depart/:members',(req,res)=>{
 	var str=req.params.depart;
       //var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(str.length-7, str.length-5)+'-'+str.substring(0, 2);
       var fdate=str;
-
+       
       console.log(req.params.from+req.params.to+fdate+req.params.members);
 	 UserPrototype.searchFlights(req.params.from,req.params.to,fdate,req.params.members).then((result)=>{
 	for (var i = 0; i < result.length; i++) {
        
 	var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,result[i].DEPARTURE_TIME,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
+
 	flightArr_local.push(flightObj_local);
 	}
 	res.setHeader('Content-Type', 'application/json');
@@ -228,7 +230,8 @@ req.session.trip_Data.push(obj);
       var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
   
 	 UserPrototype.searchFlights(req.query.from[0],req.query.to[0],fdate,totalMembers).then((result)=>{
-	
+	 console.log("fdate first time format")	;
+     console.log(fdate)	;
 	
 
 	for (var i = 0; i < result.length; i++) {
