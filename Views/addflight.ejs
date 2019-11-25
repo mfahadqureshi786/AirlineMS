@@ -1,7 +1,7 @@
 <html>
 <head>
-	<title>Add Flight</title>
-		<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+  <title>Add Flight</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 
   <link rel="stylesheet" type="text/css" href="styles/addflight.css"> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,11 +16,12 @@
 <div class="topnav" id="myTopnav">
 <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
  
-  <a href="#Signout">Signout</a>
-  <a href="#Delay Flight">Delay Flight</a>
-  <a href="#Cancel Flight">Cancel Flight</a>
-  <a href="#Add Flight" class="active">Add Flight</a>
-  <a href="#Profile">Profile</a>
+  <a href="/Signout">Signout</a>
+  <a href="/DelayFlight">Delay Flight</a>
+  <a href="/CancelFlight">Cancel Flight</a>
+  <a href="/AddFlight" class="active">Add Flight</a>
+  <a href="/AddintoFlight" >View Flight</a>
+  <a href="/Profile">Profile</a>
 
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
@@ -34,13 +35,13 @@
 
 
 <div class="container">
-  <form action="addflight" method="POST">
+  <form action="/addinflight" method="POST">
     <div class="row">
       <div class="col-25">
         <label for="Airline ID">Airline ID</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Airline ID" name="Airline ID" placeholder="Airline ID">
+        <input type="text" id="Airline ID" name="AirlineID" placeholder="Airline ID">
       </div>
     </div>
     <div class="row">
@@ -48,15 +49,16 @@
         <label for="Flight Number">Flight Number</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Flight Number" name="Flight Number" placeholder="Flight Number">
+        <input type="text" id="Flight Number" name="FlightNumber" placeholder="Flight Number">
       </div>
     </div>
+
     <div class="row">
       <div class="col-25">
-        <label for="Source">Source</label>
+        <label for="FSOURCE">SOURCE</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Source" name="Source" placeholder="Source">
+        <input type="text" id="FSOURCE" name="FSOURCE" placeholder="Source">
       </div>
     </div>
     <div class="row">
@@ -64,7 +66,7 @@
         <label for="Destination">Destination</label>
       </div>
       <div class="col-75">
-      	  <input type="text" id="Destination" name="Destination" placeholder="Destination">
+          <input type="text" id="Destination" name="Destination" placeholder="Destination">
       </div>
     </div>
     <div class="row">
@@ -72,7 +74,7 @@
        <label for="Departure Time">Departure Time</label>
       </div>
      <div class="col-75">
-       <input type="datetime-local" id="Departure Time" name="Departure Time" placeholder="Atime">
+       <input type="datetime-local" id="Departure Time" name="DepartureTime" placeholder="Atime">
      </div>
     </div>
     <div class="row">
@@ -95,7 +97,7 @@
 
     <div class="row">
      <div class="col-25">
-       <label for="BSeat">Seats In Economic Class</label>
+       <label for="ESeat">Seats In Economic Class</label>
       </div>
      <div class="col-75">
        <input type="text" id="ESeat" name="ESeat" placeholder="50">
