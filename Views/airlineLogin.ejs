@@ -15,8 +15,8 @@
 <div class="topnav" id="myTopnav">
  <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a>
  </div>
- <a href="#Login" class="Active">Login</a>
- <a href="#Home">Signup</a>
+ <a href="/Login" class="Active">Login</a>
+ <a href="/Signup">Signup</a>
  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
   <i class="fa fa-bars"></i>
  </a>
@@ -29,9 +29,9 @@
 </div>
 
 <div class="bg-img">
-  <form  class="container">
+  <form  class="container" action="/ALogin" method ="POST">
     <h1>Login</h1>
-
+    <p><%= F %> </p>
     <label for="Airline ID"><h6>Airline ID</h6></label>
     <input type="text" placeholder="Airline ID" name="Airline ID" required>
 
