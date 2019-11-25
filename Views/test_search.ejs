@@ -187,6 +187,25 @@ function showNextFlight(row)
     //select next trip if exists
 	if(response.trip_type=='oneWay')
   {
+  var tempRow=2+row;
+  var str='.table-box>.table-row:nth-child('+tempRow+')';
+  var element=document.querySelector(str);
+  var flightNum=element.children[1].innerText;
+  console.log("My index is:"+row);
+var departTime=document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.substring(response.tripData[0].from.length+1
+  ,document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.length);
+console.log("departtime:"+departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+
+  var xhttpSaveFlight=new XMLHttpRequest();
+  xhttpSaveFlight.open("GET",`/saveFlight/${TicketSelectionNo-1}/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.send();
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  TicketSelectionNo++;
+
+
    window.location.href = "http://localhost:3000/payment";
   }
   if(response.trip_type=='roundTrip')
