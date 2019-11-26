@@ -17,11 +17,12 @@
 <div class="topnav" id="myTopnav">
 <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
  
-  <a href="/Signout">Signout</a>
+  <a href="/Signup">Signout</a>
   <a href="/DelayFlight">Delay Flight</a>
   <a href="/CancelFlight">Cancel Flight</a>
   <a href="/AddFlight">Add Flight</a>
-  <a href="/AddintoFlight" class="active">View Flight</a>
+  <a href="/temp">Pending Flights</a>
+  <a href="/AddintoFlight" class = "active">Scheduled Flights</a>
   <a href="/Profile">Profile</a>
 
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -55,8 +56,8 @@
   	<td> <%= F[i].DEPARTURE_TIME %> </td>
   	<td> <%= F[i].NO_OF_SEATS %> </td>
   	<td> <%= F[i].PRICE %> </td>
-  	<td> <%= F[i].NO_OF_SEATS %> </td>
-  	<td> <%= F[i].PRICE %> </td>
+  	<td> <%= F[i].BS %> </td>
+  	<td> <%= F[i].BP %> </td>
   </tr>
   <% } %>
 </table>

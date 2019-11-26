@@ -69,30 +69,6 @@ res.render("userProfile.ejs");
 app.get("/purchaseHistory",(req,res)=>{
 res.render("purchaseHistory.ejs");
 });
-//mybookings here
-app.get("/airlineLogin",(req,res)=>{
-res.render("airlineLogin.ejs");
-});
-app.get("/airlineSignup",(req,res)=>{
-res.render("airlineSignup.ejs");
-});
-
-app.get("/addFlight",(req,res)=>{
-res.render("addflight.ejs");
-}); //Css or bootstrap
-app.post("/addFlight",(req,res)=>{
-	airlinePrototype.addFlightRequest(12345,'Karachi','Ontario','11/12/19 4:00pm').then((info)=>{
-     console.log("Request for flight add made successfully");
-     
-	}).catch((msg)=>{
-
-		console.log("Request for flight add Failed");
-		console.log(msg);
-
-	});
-	res.redirect('/addflight');
-//res.render("addflight.ejs");
-}); //Css or bootstrap
 
 function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AIRPLANE_ID,FLIGHT_CLASS,NO_OF_SEATS,PRICE){
 	this.FLIGHT_NUMBER=FLIGHT_NUMBER;
@@ -104,12 +80,7 @@ function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AI
 	this.NO_OF_SEATS=NO_OF_SEATS;
 	this.PRICE=PRICE;
 }
-app.get("/cancelFlight",(req,res)=>{
-res.render("cancelflight.ejs");
-});
-app.get("/delayFlight",(req,res)=>{
-res.render("delayflight.ejs");
-});
+
 app.post('/login',(req,res)=>{
 UserPrototype.exist(req.body.user).then((val)=>{
 		UserPrototype.findUserDetails(req.body.user,req.body.pass).then((info)=>{
@@ -135,7 +106,6 @@ console.log("at save flight route");
 var ticketSelectedNo=parseInt(req.params.option);
 console.log("ticketSelected no"+ticketSelectedNo);
 console.log("fdate:"+req.params.departTime);
-
 var obj={FLIGHT_NUMBER:req.params.FLIGHT_NUMBER,departTime:req.params.departTime,class:req.params.class};
 selectedFlights[ticketSelectedNo]=obj;
 req.session.selectedFlights=selectedFlights;
@@ -149,13 +119,12 @@ app.get('/flightData/:from/:to/:depart/:members',(req,res)=>{
 	var str=req.params.depart;
       //var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(str.length-7, str.length-5)+'-'+str.substring(0, 2);
       var fdate=str;
-       
+
       console.log(req.params.from+req.params.to+fdate+req.params.members);
 	 UserPrototype.searchFlights(req.params.from,req.params.to,fdate,req.params.members).then((result)=>{
 	for (var i = 0; i < result.length; i++) {
        
 	var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,result[i].DEPARTURE_TIME,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
-
 	flightArr_local.push(flightObj_local);
 	}
 	res.setHeader('Content-Type', 'application/json');
@@ -230,8 +199,7 @@ req.session.trip_Data.push(obj);
       var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(0, 2)+'-'+str.substring(str.length-7, str.length-5);
   
 	 UserPrototype.searchFlights(req.query.from[0],req.query.to[0],fdate,totalMembers).then((result)=>{
-	 console.log("fdate first time format")	;
-     console.log(fdate)	;
+	
 	
 
 	for (var i = 0; i < result.length; i++) {

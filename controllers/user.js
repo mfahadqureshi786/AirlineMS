@@ -57,12 +57,11 @@ return new Promise((resolve,reject)=>{
 		and flight.DEPARTURE_TIME>=STR_TO_DATE(\"${departTime}\", \"%Y-%m-%d\") and flight_class.NO_OF_SEATS>=${userSeats} 
 
 `,(error, results, fields)=>{
-			
+			console.log("results are:");
 			
 	if(results!=undefined)
 		{//if(results[0].flight_int!="")
-	console.log("results are:");
-	    console.log(results);
+	
 		resolve(results);
 	}
 	else

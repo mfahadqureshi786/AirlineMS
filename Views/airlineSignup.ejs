@@ -15,7 +15,7 @@
 <div class="topnav" id="myTopnav">
  <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a>
  </div>
- <a href="/Login">Login</a>
+ <a href="/AirlineLogin">Login</a>
  <a href="/Signup" class="Active">Signup</a>
  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
   <i class="fa fa-bars"></i>
@@ -32,14 +32,14 @@
   <form class="container" action="/ASignup" method ="POST">
     <h1>Signup</h1>
 
-    <label for="Airline ID"><h6>Airline ID</h6></label>
-    <input type="text" placeholder="Airline ID" name="AirlineID" required>
+   <label for="AirlineID"><h6>Airline ID</h6></label>
+    <input pattern="^[a-zA-Z\s]{1,50}$" title="Only Alphabets" type="text" placeholder="Airline ID" name="AirlineID" required>
 
-    <label for="Airline Name"><h6>Airline Name</h6></label>
-    <input type="text" placeholder="Airline Name" name="AirlineName" required>
+   <label for="AirlineName"><h6>Airline Name</h6></label>
+    <input pattern="^[a-zA-Z\s]{1,50}$" title="Only Alphabets" type="text" placeholder="Airline Name" name="AirlineName" required>
 
     <label for="password"><h6>Password</h6></label>
-    <input type="password" placeholder="Password" name="Apassword" required>
+    <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" title="At least one number,one uppercase,lowercase letter,8 till 50 characters" type="password" placeholder="Password" name="Apassword" required>
 
     <button type="submit" class="btn">Signup</button>
   </form>

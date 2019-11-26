@@ -15,6 +15,26 @@ else
 });	
 });
 },
+AirlineLogin:(AI,AP)=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../airlineportal.js").connection;
+connection.query(`SELECT Airline_ID from \`Airline\` where \`Airline_ID\`
+	='${AI}' and Airline_Password ='${AP}'`,
+	(error, results, fields)=>{
+if(results!=undefined && results.RowDataPacket != 0 && results.length != 0)
+	{
+		console.log("HELLO");
+		resolve(true);
+	}	
+
+else
+	{   
+		console.log(results+" "+error);
+		reject(error);
+	}
+});	
+});
+},
 AirlineSignup:(AI,AN,AP)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../airlineportal.js").connection;
@@ -23,10 +43,12 @@ connection.query(`INSERT INTO \`AIRLINE\`(\`AIRLINE_ID\`,\`AIRLINE_NAME\`, \`AIR
 		//console.log(results);
 if(results!=undefined && results.affectedRows != 0)
 	{    //console.log("at resolve");
-		resolve(true);}
+		resolve(true);
+	}
 else
 	{   //console.log("at reject");
-		reject(false);}
+		reject(error);
+	}
 });	
 });
 },
@@ -41,7 +63,10 @@ if(results!=undefined && results.affectedRows != 0)
 		resolve(true);}
 else
 	{   
-		reject(error);}
+		console.log(results+" "+error);
+		reject(error);
+
+	}
 });	
 });
 },
@@ -97,14 +122,17 @@ connection.query(`delete FROM FLIGHT_CLASS WHERE FLIGHT_CLASS.FLIGHT_NUMBER='${F
 UpdateRequestInFlight:(FNO,DT,NDT)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../airlineportal.js").connection;
-	connection.query(`update FLIGHT SET FLIGHT.DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT.FLIGHT_NUMBER='${FNO}' AND FLIGHT.DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
+	connection.query(`UPDATE FLIGHT SET FLIGHT.DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT.FLIGHT_NUMBER='${FNO}' AND FLIGHT.DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
 	(error, results, fields)=>{
      
+     console.log(results," ",error);
 	if(results.affectedRows!=0)
 	{
+		
 		resolve(results);
 	}
 	else
+		
 		reject("unable to fetch error:"+error);
 	});
 });
@@ -112,9 +140,10 @@ return new Promise((resolve,reject)=>{
 UpdateRequestInFlightClass:(FNO,DT,NDT)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../airlineportal.js").connection;
-	connection.query(`UPDATE FLIGHT_CLASS SET FLIGHT_CLASS.DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT_CLASS.FLIGHT_NUMBER='${FNO}' AND FLIGHT_CLASS.DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
+	connection.query(`UPDATE FLIGHT_CLASS SET DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT_NUMBER='${FNO}' AND DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
 	(error, results, fields)=>{
 
+	console.log(results);	
 	if(results.affectedRows!=0)
 	{
 		resolve(results);

@@ -16,11 +16,12 @@
 <div class="topnav" id="myTopnav">
 <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
  
-  <a href="/Signout">Signout</a>
-  <a href="/DelayFlight" class = "active">Delay Flight</a>
+  <a href="/Signup">Signout</a>
+  <a href="/DelayFlight" class ="active">Delay Flight</a>
   <a href="/CancelFlight">Cancel Flight</a>
-  <a href="/AddFlight" >Add Flight</a>
-  <a href="/AddintoFlight" >View Flight</a>
+  <a href="/AddFlight">Add Flight</a>
+  <a href="/temp">Pending Flights</a>
+  <a href="/AddintoFlight">Scheduled Flights</a>
   <a href="/Profile">Profile</a>
 
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -41,7 +42,7 @@
         <label for="Airline ID">Airline ID</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Airline ID" name="AirlineID" placeholder="Airline ID">
+        <input type="text" id="Airline ID" name="AirlineID" readonly placeholder="<%=F%>" value="<%=F%>">
       </div>
     </div>
     <div class="row">
@@ -49,7 +50,7 @@
         <label for="Flight Number">Flight Number</label>
       </div>
       <div class="col-75">
-        <input type="text" id="Flight Number" name="FlightNumber" placeholder="Flight Number">
+        <input pattern="^[a-zA-Z][a-zA-Z0-9\s]{1,50}$" title ="Enter Valid String"  type="text" id="Flight Number" name="FlightNumber" placeholder="Flight Number"required>
       </div>
     </div>
     <div class="row">
@@ -57,7 +58,7 @@
        <label for="Old Departure Time">Old Departure Time</label>
       </div>
      <div class="col-75">
-       <input type="datetime-local" id="Old Departure Time" name="OldDepartureTime" placeholder="Old Departure Time">
+       <input type="datetime-local" id="Old Departure Time" name="OldDepartureTime" placeholder="Old Departure Time"required>
      </div>
     </div>
 
@@ -66,7 +67,7 @@
        <label for="Departure Time">New Departure Time</label>
       </div>
      <div class="col-75">
-       <input type="datetime-local" id="Departure Time" name="DepartureTime" placeholder="New Departure Time">
+       <input type="datetime-local" id="Departure Time" name="DepartureTime" placeholder="New Departure Time"required>
      </div>
     </div>
     <div class="row">

@@ -80,7 +80,7 @@ a span
 
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
     float: left;
@@ -89,7 +89,7 @@ a span
 }
 
 
-@media screen and (max-width: 700px) {  
+@media screen and (max-width: 900px) {  
   .topnav.responsive {position: relative;}
   .topnav.responsive a.icon {
     position: absolute;
@@ -117,7 +117,7 @@ body{
  
   float:left;
 
-  height: 800px;
+  height: 1000px;
   overflow: auto;
   vertical-align:top;
 }
@@ -146,7 +146,7 @@ div.content {
   height: 100px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
   .sidebar {
     width: 100%;
     height: auto;
@@ -156,7 +156,7 @@ div.content {
   div.content {margin-left: 0;}
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 300px) {
   .sidebar a {
     text-align: center;
     float: none;
@@ -164,7 +164,7 @@ div.content {
 }
 
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 900px){
     
     .form1,h5{
     width: 100%;
@@ -172,7 +172,7 @@ div.content {
     margin-left:0%;
     }
 }
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 900px){
     
     input[type=submit]{
     width: 100%;
