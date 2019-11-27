@@ -14,11 +14,11 @@
 <body>
 
 
-<div class="topnav" id="myTopnav">
- <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a>
+<div class="topnav navbar-dark" id="myTopnav">
+ <div class="navbar-brand"><a href="/" style="color:rgb(0, 123, 255);" id="brandPlane" class="fa fa-plane"><span style="color:rgb(0, 123, 255);">SkyTek</span></a>
  </div>
  <a href="#Profile" class="active">Profile</a>
- <a href="#Ticket Reservation">Ticket Reservation</a>
+ 
  <a href="#Check Flight">Check Flight</a>
  <a href="#Login">Login</a>
  <a href="#Home">Home</a>
@@ -27,10 +27,10 @@
  </a>
  </div> 
 <div class="sidebar">
- <a class="active" href="#Edit Profile">Edit Profile</a>
- <a href="#Purchase History">Purchase History</a>
+ <a class="active" href="customer_userProfile">Edit Profile</a>
+ <a href="customer_purchaseHistory">Purchase History</a>
  
- <a href="#Signout">Signout</a>
+ <a href="customer_logout">Signout</a>
 </div>
 <div>
  <p>
@@ -39,35 +39,25 @@
 </div>
 
 
-<form class = "form1">  
+<form class = "form1" action="/customer_userProfile" method="POST">  
   <div class ="container">
    <div class ="Content-Pannel">
     <div class = "Header-Pannel">
-     <h4>Personal Information</h4>
+     <h4>Personal Information <%=message%></h4>
     </div>
     <div class ="container">
       <div class = "three-cols form-row">
-       <div class = "cols">
-        <div class="form-group">
-         <label for="Status">Status</label>
-         <select class="form-control" name="Status" id="Status" style=" width:200px;" required >
-          <option>Select</option>
-          <option>Mr</option>
-          <option>Ms</option>
-          <option>Mrs</option>
-         </select>
-        </div>  
-       </div>
+       
        <div class = "cols">
         <div class = "form-group">
          <Label for="FirstName">First Name</Label>
-         <input type="text" class="form-control" id="FirstName" name="FirstName"  Placeholder ="First Name" required>
+         <input type="text" class="form-control" id="FirstName" disabled="true" name="FirstName"  value="<%=FirstName%>" Placeholder ="First Name" required>
         </div>
        </div>  
        <div class = "cols">
         <div class = "form-group">
          <Label for="LastName">Last Name</Label>
-         <input type="text" class="form-control" name="LastName" id="LastName" Placeholder ="Last Name" required>
+         <input type="text" class="form-control" name="LastName" disabled="true" id="LastName" value="<%=LastName%>" Placeholder ="Last Name" required>
         </div>
        </div>          
       </div>
@@ -77,66 +67,32 @@
        <div class = "cols">
         <div class="form-group">
          <Label for="DateOfBirth">Date Of Birth</Label>
-         <input class="form-control" type="date" name="DateOfBirth" id="DateOfBirth" Placeholder ="" required>
+         <input class="form-control" type="date" name="DateOfBirth" id="DateOfBirth" value="<%=DateOfBirth%>" Placeholder ="" required>
         </div>  
        </div>
        <div class = "cols">
         <div class = "form-group">
-         <Label for="ContactNumber1">Contact Number 1</Label>
-         <input type="tel" class="form-control" name="ContactNumber1"id="ContactNumber1" Placeholder ="0000-0000000" required>
+         <Label for="ContactNumber1">Contact Number </Label>
+         <input type="tel" class="form-control" name="ContactNumber" id="ContactNumber" value="<%=ContactNumber%>" Placeholder ="03xxxxxxxxx" >
         </div>
        </div>  
-       <div class = "cols">
-        <div class = "form-group">
-         <Label for="ContactNumber2">Contact Number 2</Label>
-         <input type="tel" class="form-control" id="ContactNumber2" Placeholder ="0000-0000000" required>
-        </div>
-       </div>          
+              
       </div>  
     </div>
    </div> 
   </div> 
   <div class ="container">
    <div class ="Content-Pannel">
-    <div class ="header-pannel">
-     <h4>Address</h4>
-    </div>  
+    
     <div class ="container">
-      <div class = "three-cols form-row">
+      <div class = "one-cols form-row">
        <div class = "cols">
         <div class="form-group">
-         <label for="Country">Country</label>
-         <input type="text" class="form-control" id="Country" Placeholder ="Pakistan" required>
+         <Label for="City">Address</Label>
+         <input type="text" class="form-control" id="Address" disabled="true" name="Address" value="<%=Address%>" Placeholder ="Karachi" required>
         </div>  
        </div>
-       <div class = "cols">
-        <div class = "form-group">
-         <Label for="Address1">Current Address</Label>
-         <input type="text" class="form-control" id="Address1" Placeholder ="" required>
-        </div>
-       </div>   
-       <div class = "cols">
-        <div class = "form-group">
-         <Label for="Address2">Permenant Address</Label>
-         <input type="text" class="form-control" id="Address2" Placeholder ="" required>
-        </div>
-       </div>          
-      </div>  
-    </div>
-    <div class ="container">
-      <div class = "two-cols form-row">
-       <div class = "cols">
-        <div class="form-group">
-         <Label for="City">City</Label>
-         <input type="text" class="form-control" id="City" Placeholder ="Karachi" required>
-        </div>  
-       </div>
-       <div class = "cols">
-        <div class = "form-group">
-         <Label for="ZipCode">Zip Code</Label>
-         <input type="Number" class="form-control" id="ZipCode" Placeholder ="75950" required>
-        </div>
-       </div>          
+              
       </div>  
     </div>
    </div>
@@ -151,19 +107,19 @@
        <div class = "cols">
         <div class="form-group">
          <Label for="CurrentEmail">Current Email</Label>
-         <input type="email" class="form-control" id="CurrentEmail" Placeholder ="abc@gmail.com" required>
+         <input type="email" class="form-control" name="CurrentEmail" disabled="true" id="CurrentEmail" value="<%=CurrentEmail%>" Placeholder ="abc@gmail.com" required>
         </div>  
        </div>
        <div class = "cols">
         <div class = "form-group">
          <Label for="NewEmail">New Email</Label>
-         <input type="email" class="form-control" id="NewEmail" Placeholder ="abc@gmail.com" required>
+         <input type="email" class="form-control" id="NewEmail" name="NewEmail" Placeholder ="abc@gmail.com" >
         </div>
        </div>
        <div class = "cols">
         <div class = "form-group">
          <Label for="ConfirmEmail">Confirm Email</Label>
-         <input type="email" class="form-control" id="ConfirmEmail" Placeholder ="abc@gmail.com" required>
+         <input type="email" class="form-control" id="ConfirmEmail" name="ConfirmEmail" Placeholder ="abc@gmail.com" >
         </div>
        </div>          
       </div>  
@@ -179,14 +135,14 @@
       <div class = "two-cols form-row">
        <div class = "cols">
         <div class="form-group">
-         <Label for="Password">Password</Label>
-         <input type="password" class="form-control" id="Password" Placeholder ="abc1234!@#$" required>
+         <Label for="Password">Current Password</Label>
+         <input type="password" class="form-control" id="Password" name="Password" Placeholder ="abc1234!@#$" required>
         </div>  
        </div>
        <div class = "cols">
         <div class = "form-group">
          <Label for="NewPassword">New Password</Label>
-         <input type="password" class="form-control" id="NewPassword" Placeholder ="abc1234!@#$" required>
+         <input type="password" class="form-control" id="NewPassword" name="NewPassword" Placeholder ="abc1234!@#$">
         </div>
        </div>
       </div>  
@@ -203,13 +159,13 @@
       <div class = "cols">
        <div class="form-group">
         <Label for="CreditCard">Credit Card No</Label>
-        <input type="number" class="form-control" id="CreditCard" Placeholder ="xxxxxxxxx" required>
+        <input type="text" class="form-control" id="CreditCard" name="CreditCard"  value="<%=CreditCard%>" Placeholder ="xxxxxxxxx" >
        </div>  
       </div>
       <div class = "cols">
        <div class = "form-group">
         <Label for="Credit">Amount In Credit Card</Label>
-        <input type="number" class="form-control" id="Credit" Placeholder ="10000000" required>
+        <input type="text" class="form-control" id="Credit" name="Credit" value="<%=Credit%>" Placeholder ="10000000" >
        </div>
       </div>
      </div> 
@@ -217,13 +173,13 @@
       <div class = "cols">
        <div class="form-group">
         <Label for="DebitCard">Debit Card No</Label>
-        <input type="number" class="form-control" id="DebitCard" Placeholder ="xxxxxxxxx" required>
+        <input type="text" class="form-control" id="DebitCard" name="DebitCard"  Placeholder ="xxxxxxxxx" >
        </div>  
       </div>
       <div class = "cols">
        <div class = "form-group">
         <Label for="Debit">Amount In Debit Card</Label>
-        <input type="number" class="form-control" id="Debit" Placeholder ="10000000" required>
+        <input type="number" class="form-control" id="Debit" name="Debit" Placeholder ="10000000" >
        </div>
       </div>       
      </div>  

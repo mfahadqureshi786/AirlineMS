@@ -1,9 +1,9 @@
 
 var UserPrototype={
-exist:(username)=>{
+exist:(username,password)=>{
 return new Promise((resolve,reject)=>{
-	var connection=require("../app.js").connection;
-connection.query(`SELECT id from \`account\` where \`username\`='${username}'`,
+	var connection=require("../airlineportal.js").connection;
+connection.query(`SELECT CUSTOMER_ID from \`customer\` where \`email\`='${username}' and \`CUSTOMER_PASSWORD\`=${password}`,
 	(error, results, fields)=>{
 		console.log(results);
 if(results!=undefined && results.length != 0)
@@ -15,40 +15,208 @@ else
 });	
 });
 },
-findUserDetails:(username,password)=>{
-	return new Promise((resolve,reject)=>{
-		var connection=require("../app.js").connection;
-	connection.query(`SELECT * from \`account\` where \`username\`='${username}' 
-and password='${password}'`,(error, results, fields)=>{
-	if(results[0].id!=undefined)
+updateCustomerContact:(ID,ContactNumber)=>{
+return new Promise((resolve,reject)=>{
+	if(ContactNumber=='')
+		ContactNumber=0;
+	var connection=require("../airlineportal.js").connection;
+connection.query(`update customer set \`ContactNumber\`=${ContactNumber} where \`CUSTOMER_ID\`=${ID}`,
+	(error, results, fields)=>{
+		console.log(results);
+if(error)
+	{   
+		reject(error);}
+else
+	{   resolve(results);
+		
+		}
+});	
+});
+},
+updateCCNumber:(ID,CCN,BALANCE)=>{
+return new Promise((resolve,reject)=>{
+	if(CCN=='')
+		CCN=0;
+	if (BALANCE=='') 
+	{
+BALANCE=0;
+	}
+	var connection=require("../airlineportal.js").connection;
+connection.query(`update credit_card set \`CCARD_NUMBER\`=${CCN},\`BALANCE\`=${BALANCE} where \`CUSTOMER_ID\`=${ID}`,
+	(error, results, fields)=>{
+		console.log(results);
+if(error)
+	{   
+		reject(error);}
+else
+	{   resolve(results);
+		
+		}
+});	
+});
+}
+,
+updateCustomer:(ID,req)=>{
+return new Promise((resolve,reject)=>{
+		var connection=require("../airlineportal.js").connection;
+		//updates only if provided valid ID,email,pass
+		if(req.body.NewEmail==req.body.ConfirmEmail && req.body.NewEmail!="" &&req.body.NewPassword!=""){
+			
+	connection.query(`update \`customer\` set \`DATE_OF_BIRTH\`='${req.body.DateOfBirth}',\`EMAIL\`='${req.body.NewEmail}',\`CUSTOMER_PASSWORD\`='${req.body.NewPassword}'
+		where \`CUSTOMER_ID\`=${ID} and \`CUSTOMER_PASSWORD\`='${req.body.Password}';`,(error, results, fields)=>{
+	if(error)
+		{reject(error);
+		console.log(error);}
+
+	else
+		{   console.log(error);
+			resolve(results[0]);
+		}
+	});	
+}
+else if(req.body.NewEmail=="" && req.body.NewEmail==req.body.ConfirmEmail && req.body.NewPassword!=""){
+connection.query(`update \`customer\` set \`DATE_OF_BIRTH\`='${req.body.DateOfBirth}',\`CUSTOMER_PASSWORD\`='${req.body.NewPassword}'
+		where \`CUSTOMER_ID\`=${ID} and \`CUSTOMER_PASSWORD\`='${req.body.Password}';`,(error, results, fields)=>{
+	if(results!=undefined)
 		resolve(results[0]);
 	else
-		reject('unable to fetch details');
+		{   console.log(error);
+			reject('unable to update user');}
+	});	
+
+}
+else if(req.body.NewEmail!="" && req.body.NewEmail==req.body.ConfirmEmail && req.body.NewPassword==""){
+connection.query(`update \`customer\` set \`DATE_OF_BIRTH\`='${req.body.DateOfBirth}',\`EMAIL\`='${req.body.NewEmail}'
+		where \`CUSTOMER_ID\`=${ID} and \`CUSTOMER_PASSWORD\`='${req.body.Password}';`,(error, results, fields)=>{
+	if(results.length!=0)
+		resolve(results[0]);
+	else
+		{   console.log(error);
+			reject('unable to update user');}
+	});	
+
+}
+else if(req.body.NewEmail=="" && req.body.NewEmail==req.body.ConfirmEmail && req.body.NewPassword==""){
+connection.query(`update \`customer\` set \`DATE_OF_BIRTH\`='${req.body.DateOfBirth}'
+		where \`CUSTOMER_ID\`=${ID} and \`CUSTOMER_PASSWORD\`='${req.body.Password}';`,(error, results, fields)=>{
+	if(error)
+		reject(error);
+	else
+		{   console.log(results);
+			resolve(results);}
+	});	
+
+}
+else{
+reject("One of the cases failed");
+}
+});
+},
+findUserByID:(ID)=>{
+	return new Promise((resolve,reject)=>{
+		var connection=require("../airlineportal.js").connection;
+		console.log("ID passed:"+ID);
+	connection.query(`SELECT * from \`customer\` where \`CUSTOMER_ID\`='${ID}'`,(error, results, fields)=>{
+	if(error)
+		reject(error);
+	else
+		{   
+			resolve(results[0]);}
+	});
+});
+}
+,
+findUserDetails:(username,password)=>{
+	return new Promise((resolve,reject)=>{
+		var connection=require("../airlineportal.js").connection;
+		console.log("username"+username);
+		console.log("password"+password);
+	connection.query(`SELECT * from \`customer\` where \`email\`='${username}' 
+and \`CUSTOMER_PASSWORD\`='${password}'`,(error, results, fields)=>{
+	if(results.length!=0)
+		resolve(results[0]);
+	else
+		{   console.log(error);
+			reject('unable to fetch details');}
 	});
 });
 },
-register:(req)=>{
+findAllUserIDs:()=>{
+	return new Promise((resolve,reject)=>{
+		var connection=require("../airlineportal.js").connection;
+	connection.query(`SELECT CUSTOMER_ID from \`customer\``,(error, results, fields)=>{
+	if(results!=undefined)
+		resolve(results);
+	else
+		reject('unable to fetch customer ids');
+	});
+});
+},
+findCardByUserID:(ID)=>{
 return new Promise((resolve,reject)=>{
-	var connection=require("../app.js").connection;
-connection.query(`insert into customer (\`username\`,\`password\`,\`email_id\`,\`first_name\`
-	,\`last_name\`,\`country\`,\`state\`,\`city\`,\`house_no\`) 
-	values('${req.body.username}','${req.body.password}','${req.body.email_id}','${req.body.first_name}','${req.body.last_name}','${req.body.country}','${req.body.state}','${req.body.city}','${req.body.house_no}')`
+	var connection=require("../airlineportal.js").connection;
+	
+    connection.query(`select * from credit_card,customer where credit_card.CUSTOMER_ID=${ID}`
 	, function (error, results, fields) {
-	console.log("inserted id:"+results.insertId);
-  if (error) 
-  	{reject("User registration Failed");}
- connection.query(`select username from \`customer\` where \`id\`=${results.insertId}`
- 	,function(error,results,fields){
-if(results[0].username)
- resolve('User registered successfully!');
- });
+	if(error)
+		reject(error);
+	else
+		resolve(results);
+});//outer query ends here
+});
+},
+findCardInfo:()=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../airlineportal.js").connection;
+	
+    connection.query(`select * from credit_card,customer where credit_card.CUSTOMER_ID=customer.CUSTOMER_ID`
+	, function (error, results, fields) {
+	if(error)
+		reject(error);
+	else
+		resolve(results);
+});//outer query ends here
+});
+}
+,
+insertCardInfo:(ccn,ID)=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../airlineportal.js").connection;
+	
+    connection.query(`insert into \`credit_card\`(\`CCARD_NUMBER\`,\`BALANCE\`,\`CUSTOMER_ID\`) values(${ccn},0,${ID})`
+    	, function (error, results, fields) {
+	if(error)
+		reject(error);
+	else
+		resolve(results);
+});//outer query ends here
+});
+}
+,
+register:(ID,req)=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../airlineportal.js").connection;
+	
+	var newCnic=parseInt(req.body.cnic.substring(0,5)+req.body.cnic.substring(6,14)+req.body.cnic.substring(15,16));
+	console.log(newCnic);
+connection.query(`insert into customer (CUSTOMER_ID,\`cnic\`,\`CUSTOMER_PASSWORD\`,\`email\`,\`FIRST_NAME\`
+	,\`LAST_NAME\`,\`country\`,\`Address\`,\`DATE_OF_BIRTH\`) 
+	values(${ID},${newCnic},'${req.body.password}','${req.body.email}','${req.body.first_name}',
+	'${req.body.last_name}','${req.body.country}','${req.body.Address}','1111-11-11')`
+	, function (error, results, fields) {
+	if(error)
+		reject(error);
+	else
+		resolve(results);
+
+
 
 });//outer query ends here
 });
 },
 searchFlights:(from,to,departTime,userSeats)=>{
 return new Promise((resolve,reject)=>{
-	var connection=require("../app.js").connection;
+	var connection=require("../airlineportal.js").connection;
 	
 	connection.query(`SELECT * from flight,flight_class where flight.FLIGHT_NUMBER=flight_class.FLIGHT_NUMBER 
 		and flight.DEPARTURE_TIME=flight_class.DEPARTURE_TIME
@@ -71,7 +239,7 @@ return new Promise((resolve,reject)=>{
 },
 searchFlightByClass: (FLIGHT_int,from,to,departTime,userSeats,flight_class)=>{
 return new Promise((resolve,reject)=>{
-	var connection=require("../app.js").connection;
+	var connection=require("../airlineportal.js").connection;
 	
 	connection.query(`SELECT * from flight,flight_class where flight.FLIGHT_int=flight_class.FLIGHT_int and 
    	lower(flight.SOURCE) like \"islamabad\" and lower(flight.DESTINATION) like \"ontario\" 

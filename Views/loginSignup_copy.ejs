@@ -19,14 +19,14 @@
       
       <li><a class="nav-item nav-link" href="login">Login</a></li>
       <li><a class="nav-item nav-link" href="#">Check Flights</a></li>
-      <li><a class="nav-item nav-link" href="#">Ticket Reservation</a></li>
+      
       </ul>
     
   </div>
 </nav>  
 <div class="FormDiv">
 	<button type="button" name="signupSwitch" class="btn-lg btn-block btn btn-light btn-sm" onclick="switchLoginSignup()">Login/Signup</button>
-<form class="loginForm">
+<form class="loginForm" action="/customer_login" method="post">
   <div>
   	<p style="text-align: center;"><label for="email" class="fa fa-user"></label></p>
     <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email">
@@ -38,23 +38,26 @@
  
   <button type="submit" class="btn-lg btn-block btn btn-success btn-sm">Submit</button>
 </form>
-<form class="signupForm hideSignup">
+<form class="signupForm hideSignup" action="/customer_signup" method="post">
+<div>
+    
+    <input type="text" pattern="[4][2][2][0][1][-]\d{8}[-][0-9]$"  class="form-control" name="cnic" id="exampleInputEmail1" placeholder="CNIC 42201-xxxxxxxx-x" required>
+  </div>
 	<div>
   	
-    <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email">
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email" required>
   </div>
   <div>
-  	
     <input type="password"  class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
   </div>
  	<div>
-    <input type="text"  class="form-control" name="firstName"  placeholder="First Name">
+    <input type="text"  class="form-control" name="first_name"  placeholder="First Name">
   </div>
   <div>
-    <input type="text"  class="form-control" name="lastName"  placeholder="Last Name">
+    <input type="text"  class="form-control" name="last_name"  placeholder="Last Name">
   </div>
   <div>
-    <input type="text"  class="form-control" name="city"  placeholder="City">
+    <input type="text"  class="form-control" name="Address"  placeholder="Address">
   </div>
   <div>
     <input type="text"  class="form-control" name="country"  placeholder="Country">

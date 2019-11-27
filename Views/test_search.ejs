@@ -173,10 +173,7 @@ var ticketOneLength,ticketTwoLength,ticketThreeLength;
   console.log("Response is:");
   response=JSON.parse(xhttp.responseText);
   console.log(response.trip_type);
-  if(response.trip_type=='oneWay')
-  {
-   //show oneway data
-  }
+  
 }}
   xhttp.send(); 
 
@@ -187,7 +184,29 @@ function showNextFlight(row)
     //select next trip if exists
 	if(response.trip_type=='oneWay')
   {
-   window.location.href = "http://localhost:3000/payment";
+  var rowNumber=2+row;
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  var flightNum=element.children[1].innerText;
+  console.log("row:"+row);
+  var departTime=document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.substring(response.tripData[0].from.length+1
+  ,document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.length);
+console.log("departtime:"+departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var xhttpSaveFlight=new XMLHttpRequest();
+  xhttpSaveFlight.open("GET",`/saveFlight/0/${flightNum}/${departTime}/${myClass}`,true);
+   
+  xhttpSaveFlight.onreadystatechange=()=>{
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
+  console.log("Inside if");
+  TicketSelectionNo++;
+  window.location.href = "http://localhost:3001/payment";
+  }
+  }
+ xhttpSaveFlight.send();
+   
   }
   if(response.trip_type=='roundTrip')
   {
@@ -343,7 +362,7 @@ else if (cellOne==true && cellTwo==true)
   }
 	xhttpSaveFlight.send();
 
-window.location.href = "http://localhost:3000/payment";
+window.location.href = "http://localhost:3001/payment";
   }
 }
 if(response.trip_type=="multiCity")
@@ -591,7 +610,7 @@ var rowNumber=row+2;
   {
   console.log("Inside if");
   TicketSelectionNo++;
-  window.location.href = "http://localhost:3000/payment";
+  window.location.href = "http://localhost:3001/payment";
   }
   }
  xhttpSaveFlight.send();

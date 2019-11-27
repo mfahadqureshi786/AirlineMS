@@ -59,7 +59,7 @@ a span
 
 .topnav a:hover {
   background-color:#FF1493;
-  color:white;
+  color:#0075e1;
 }
 
 .topnav a.active {
@@ -70,7 +70,7 @@ a span
 .navbar-brand 
 {
   float:left;
-
+color: #304861;
   
 }
 

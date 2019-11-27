@@ -49,25 +49,189 @@ app.get('/',(req,res)=>{
   console.log(req.session);
   res.render('home_copy.ejs');
   });
-  app.get('/login',(req,res)=>{
+  
+  app.get("/customer_userProfile",(req,res)=>{
+  	console.log("req.session.customer_id:"+req.session.customer_id);
+    
+ 	if(req.session!=undefined && req.session.customer_id!=undefined)
+  {
+  UserPrototype.findUserByID(req.session.customer_id).then((result)=>{
+
+
+var month = result.DATE_OF_BIRTH.getMonth() + 1; //months from 1-12
+  var day = result.DATE_OF_BIRTH.getDate();
+  var year =result.DATE_OF_BIRTH.getUTCFullYear();
+  
+  var newdate2 = year+"-"+month + "-" + day;
+
+  if (parseInt(day)<=9)
+  {
+  	newdate2 = year+"-"+month + "-"+"0"+day;
+  }
+  if (parseInt(month)<=9)
+  {
+  	newdate2 = year+"-"+"0"+month + "-"+"0"+day;
+  }
+UserPrototype.findCardByUserID(req.session.customer_id).then((Innerresult)=>{
+res.render("userProfile.ejs",{message:req.session.userProfileMessage,FirstName:result.FIRST_NAME,LastName:result.LAST_NAME
+  	,DateOfBirth:newdate2,CurrentEmail:result.EMAIL,Address:result.Address
+  	,ContactNumber:result.ContactNumber,CreditCard:Innerresult[0].CCARD_NUMBER,Credit:Innerresult[0].BALANCE});
+}).catch((msg)=>{
+console.log("find card by id failed");
+res.redirect('/');
+});
+
+  
+  }).catch((msg)=>{
+  	console.log(req.session.customer_id);
+console.log('unable to find user by id in customer profile route');
+console.log(msg);
+res.redirect('/');
+  });
+  }
+  else
+  	res.redirect('/customer_login');
+
+  });
+
+  app.post('/customer_userProfile',(req,res)=>{
+  	console.log("Body");
+  	console.log(req.body);
+if(req.session){
+  	UserPrototype.updateCustomer(req.session.customer_id,req).then((result)=>{
+  		//if(req.body.ContactNumber!="" ){
+
+  			UserPrototype.updateCustomerContact(req.session.customer_id,req.body.ContactNumber).then((Innerresult)=>{
+  					UserPrototype.updateCCNumber(req.session.customer_id
+  						,req.body.CreditCard,req.body.Credit).then((InnertwoResult)=>{
+                             req.session.userProfileMessage="Successfully Updated";
+                           res.redirect('/customer_userProfile');
+  						}).catch((Innertwomsg)=>{
+                         console.log(Innertwomsg);
+  				req.session.userProfileMessage="Failed to Update User Profile ContactNumber";
+  						res.redirect('/customer_userProfile');			
+  						});
+
+
+              //req.session.userProfileMessage="Successfully Updated";
+              //res.redirect('/customer_userProfile');
+  			}).catch((InnerMsg)=>{
+  				console.log(InnerMsg);
+  				req.session.userProfileMessage="Failed to Update User Profile ContactNumber";
+    res.redirect('/customer_userProfile');
+  			});
+  		//}
+  		//req.session.userProfileMessage="Successfully Updated";
+    //res.redirect('/customer_userProfile');
+  	}).catch((msg)=>{
+  		req.session.userProfileMessage="Failed to Update User Profile outer";
+    res.redirect('/customer_userProfile');
+  	});
+  	}
+  	else
+  		res.redirect('/customer_login');
+  });
+app.get('/customer_logout',(req,res)=>{
+req.session.destroy();
+if(req.session!=undefined){
+	console.log("Cust id after destroying session:");
+	console.log(req.session.customer_id);
+}
+console.log("session destroyed:Id:"+req.session);
+res.redirect('/customer_login');
+});
+
+app.get('/customer_login',(req,res)=>{
+
   console.log('On login route');
   if(req.session.customer_id==undefined)
-  {console.log("On login page");
+  {console.log("On login sign up page");
+console.log("req.session:");
+
   res.render('loginSignup_copy.ejs');
   }
   else
   {console.log("signed in user on login page");
-  res.redirect('/');
+  res.redirect('/customer_userProfile');
   }
+  });
+
+  app.get("/customer_purchaseHistory",(req,res)=>{
+if(req.session.customer_id==undefined)
   
-  });
-  app.get("/userProfile",(req,res)=>{
-  res.render("userProfile.ejs");
-  });
-  app.get("/purchaseHistory",(req,res)=>{
+   res.redirect('/customer_login');
+  
+  else
+  
   res.render("purchaseHistory.ejs");
+     
   });
   
+   app.post('/customer_login',(req,res)=>{
+   	//req.session.destroy();
+  UserPrototype.exist(req.body.email,req.body.password).then((booleanResult)=>{
+      UserPrototype.findUserDetails(req.body.email,req.body.password).then((info)=>{
+        req.session.customer_id=info.CUSTOMER_ID;
+        res.redirect('/customer_userProfile');
+      }).catch((msg)=>{
+    	console.log(msg);
+ 		 res.redirect('/customer_login');});
+    }).catch((msg)=>{
+    	console.log("User does not exist");
+    	 res.redirect('/customer_login');
+    });
+  });
+
+  app.post('/customer_signup',(req,res)=>{
+  	UserPrototype.findAllUserIDs().then((results)=>{
+
+  		
+  		console.log("find all user exec succes");
+  		
+  		var ID;
+  		
+  		if(results.length==0)
+ 		{ID=0;}
+ 	else
+ 		{ID=results[results.length-1].CUSTOMER_ID+1;}
+UserPrototype.register(ID,req).then((result)=>{
+
+UserPrototype.findCardInfo().then((Innerresult)=>{
+  			console.log("find credit infos:");
+  			var ccn=parseInt(Innerresult.length);
+  			if(ccn==0)
+  				ccn=0;
+  			else
+  				{
+  					ccn=Innerresult[Innerresult.length-1].CCARD_NUMBER+1;}
+ 				UserPrototype.insertCardInfo(ccn,ID).then((InnertwoResult)=>{
+ 				console.log("inserted card info");
+ 				}).catch((msg)=>{
+console.log("inserted card Failed");
+console.log(msg);
+ 				});
+  				
+            console.log(Innerresult);
+           
+
+  		}).catch((msg)=>{
+
+  		});
+console.log(result);
+console.log("register success");
+
+}).catch((msg)=>{
+console.log(msg);
+});
+
+
+  	}).catch((msg)=>{
+console.log(msg);
+  	});
+
+res.redirect('/customer_login');
+  });
+ 
   function Flight(FLIGHT_NUMBER,FLIGHT_SOURCE,FLIGHT_DESTINATION,DEPARTURE_TIME,AIRPLANE_ID,FLIGHT_CLASS,NO_OF_SEATS,PRICE){
     this.FLIGHT_NUMBER=FLIGHT_NUMBER;
     this.FLIGHT_SOURCE=FLIGHT_SOURCE;
@@ -78,17 +242,6 @@ app.get('/',(req,res)=>{
     this.NO_OF_SEATS=NO_OF_SEATS;
     this.PRICE=PRICE;
   }
-  
-  app.post('/login',(req,res)=>{
-  UserPrototype.exist(req.body.user).then((val)=>{
-      UserPrototype.findUserDetails(req.body.user,req.body.pass).then((info)=>{
-        req.session.customer_id=info.id;
-        res.redirect('/');
-      });
-    }).catch((msg)=>{console.log(msg);
-  res.redirect('/');
-    });
-  });
   app.get('/myTripData',(req,res)=>{
   res.setHeader('Content-Type', 'application/json');
   var obj={trip_type:req.session.trip_type,tripData:req.session.trip_Data,members:req.session.members};
