@@ -214,6 +214,28 @@ connection.query(`insert into customer (CUSTOMER_ID,\`cnic\`,\`CUSTOMER_PASSWORD
 });//outer query ends here
 });
 },
+searchFlightByID:(FlightID,DepartTime,FlightClass)=>
+{
+return new Promise((resolve,reject)=>{
+	var connection=require("../airlineportal.js").connection;
+	console.log("flight id:"+FlightID+" Departtime:"+DepartTime+" Flightclass:"+FlightClass);
+	var newdepartTime=DepartTime.substring(0,DepartTime.length-2)+parseInt(DepartTime.substring(DepartTime.length-2,DepartTime.length))+1;
+    connection.query(`select * from flight,flight_class where flight.FLIGHT_NUMBER=flight_class.FLIGHT_NUMBER and 
+    	flight.DEPARTURE_TIME=flight_class.DEPARTURE_TIME and 
+    	flight.FLIGHT_NUMBER=\'${FlightID}\'and flight_class.FLIGHT_CLASS='${FlightClass}'  and flight.DEPARTURE_TIME=\'${DepartTime}\' or flight.DEPARTURE_TIME=\'${newdepartTime}\'`
+    	, function (error, results, fields) {
+	if(error)
+		reject(error);
+	else
+		{
+            console.log("flight searched by id");
+            console.log(results);
+			resolve(results);}
+});//outer query ends here
+});
+
+}
+,
 searchFlights:(from,to,departTime,userSeats)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../airlineportal.js").connection;

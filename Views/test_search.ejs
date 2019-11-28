@@ -246,9 +246,15 @@ console.log("departtime:"+departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
   var xhttpSaveFlight=new XMLHttpRequest();
   xhttpSaveFlight.open("GET",`/saveFlight/${TicketSelectionNo-1}/${flightNum}/${departTime}/${myClass}`,true);
-  xhttpSaveFlight.send();
+  
+  xhttpSaveFlight.onreadystatechange=()=>{
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
   TicketSelectionNo++;
+  }
+  }
+
+  xhttpSaveFlight.send();
   //replace all tuples with new using flightResponse
 
   //removes ticket-1
@@ -355,14 +361,17 @@ else if (cellOne==true && cellTwo==true)
   console.log(departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
   var xhttpSaveFlight=new XMLHttpRequest();
-  xhttpSaveFlight.open("GET",`/saveFlight/${1}/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.open("GET",`/saveFlight/1/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.onreadystatechange=()=>{
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
   {
 	TicketSelectionNo++;
+  window.location.href = "http://localhost:3001/payment";
+  }
   }
 	xhttpSaveFlight.send();
 
-window.location.href = "http://localhost:3001/payment";
+
   }
 }
 if(response.trip_type=="multiCity")

@@ -6,11 +6,14 @@
 
 <body>
     <div class="sidebar">
-        <a href="#home">Home</a>
-        <a class="signout" href="#home">Signout</a>
-        <a href="#reservations">Reservations</a>
+        <a href="/">Home</a>
+         <%       if (IsloggedIn==false){ %>
+        <a class="signin" href="/customer_login">Login</a>
+        <%   } else {  %>
+<a class="signout" href="/customer_logout">Logout</a>
+          <%    }  %>
         
-        <a href="#help">Help</a>
+        
         
       </div>
       
@@ -51,8 +54,11 @@
               <i class="fa fa-cc-mastercard" style="color:red;"></i>
               <i class="fa fa-cc-discover" style="color:orange;"></i>
             </div>
-
+            <%  var total=members.adults+members.children+members.infants-1;%>
+            <%       if (IsloggedIn==false){total++; }     %>
+<% for(var i=0;i<total;i++) { %>
             <div class ="container">
+         <h4> Passenger <%=i+1%> Details</h4>
       <div class = "three-cols form-row">
        
        <div class = "cols">
@@ -66,10 +72,18 @@
          <Label for="LastName">Last Name</Label>
          <input type="text" class="form-control" name="LastName"  id="LastName" value="" Placeholder ="Last Name" required>
         </div>
-       </div>          
+       </div>   
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="PassportNumber">Passport Number</Label>
+         <input type="text" class="form-control" name="PassportNumber"  id="PassportNumber" value="" Placeholder ="Passport Number" required>
+        </div>
+       </div>        
       </div>
     </div>
-
+    <% }  %>
+    <div class="container">
+            <h4> Card Details</h4>
             <label for="cname">Name on Card</label>
             <input type="text" id="cname" name="cardname" placeholder="John More Doe">
             <label for="ccnum">Credit card number</label>
@@ -91,6 +105,7 @@
           <label>
               <input type="checkbox" checked="checked" name="sameadr"> Confirm
             </label>
+            </div>
             <input type="submit" value="Pay" class="btn">
       </div>
 

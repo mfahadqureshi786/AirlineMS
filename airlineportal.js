@@ -45,8 +45,11 @@ var UserPrototype=require("./controllers/user.js").UserPrototype;
 
 app.get('/',(req,res)=>{
   console.log("at root route");
+if(req.session!=undefined)
+    req.session.selectedFlights=undefined;
   console.log("session is:"+req.session.id);
   console.log(req.session);
+ 
   res.render('home_copy.ejs');
   });
   
@@ -290,7 +293,106 @@ res.redirect('/customer_login');
   });
   
   app.get('/payment',(req,res)=>{
-  res.render('payment.ejs');
+    if(req.session!=undefined && req.session.selectedFlights!=undefined && req.session.selectedFlights.length==req.session.trip_Data.length)
+      {
+
+//now we find price of all tickets
+var totalMembers=parseInt(req.session.members.adults)+parseInt(req.session.members.children)+parseInt(req.session.members.infants);
+var Cost_Tickets_1=0,Cost_Tickets_2=0,Cost_Tickets_3=0;
+UserPrototype.searchFlightByID(req.session.selectedFlights[0].FLIGHT_NUMBER
+  ,req.session.selectedFlights[0].departTime,
+   req.session.selectedFlights[0].class
+  ).then((results)=>{
+  Cost_Tickets_1=totalMembers*results[0].PRICE;
+  console.log("total price is for ticket 1:"+Cost_Tickets_1);
+  //ticket 2
+  if(req.session.selectedFlights[1]!=undefined)
+{
+  UserPrototype.searchFlightByID(req.session.selectedFlights[1].FLIGHT_NUMBER
+  ,req.session.selectedFlights[1].departTime,req.session.selectedFlights[1].class).then((Innerresults)=>{
+    console.log(Innerresults);
+Cost_Tickets_2=totalMembers*Innerresults[0].PRICE;
+console.log("total price is for ticket 2:"+Cost_Tickets_2);
+
+ if(req.session.selectedFlights[2]!=undefined)
+{
+UserPrototype.searchFlightByID(req.session.selectedFlights[2].FLIGHT_NUMBER
+  ,req.session.selectedFlights[2].departTime,req.session.selectedFlights[2].class).then((InnerTworesults)=>{
+    Cost_Tickets_3=totalMembers*InnerTworesults[0].PRICE;
+console.log("total price is for ticket 3:"+Cost_Tickets_3);
+
+if(req.session.customer_id!=undefined)
+  {
+     
+    res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:true});
+
+}
+else
+  {res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:false});}
+
+
+  }).catch((InnerTwomsg)=>{
+console.log("ticket index 2 selection price failed");
+     console.log(InnerTwomsg);
+  });
+} 
+else{
+
+
+  if(req.session.customer_id!=undefined)
+  {
+     
+    res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:true});
+
+}
+else
+  {res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:false});}
+
+}
+
+  }).catch((Innermsg)=>{
+     console.log("ticket index 1 selection price failed");
+     console.log(Innermsg);
+  });
+
+
+}
+
+else
+{
+
+ if(req.session.customer_id!=undefined)
+  {
+     
+    res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:true});
+
+}
+else
+  {res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:false});}
+}
+
+  }).catch((msg)=>{
+    console.log("inner if failed");
+    console.log(msg);
+res.redirect('/');  
+  });
+
+//
+        
+    
+}
+else
+{
+  console.log("outer if failed");
+  console.log(req.session.selectedFlights.length+"---"+req.session.trip_Data.length);
+res.redirect('/');  
+}
   });
   app.get('/SearchFlights',(req,res)=>{
     console.log("at search flight route");
