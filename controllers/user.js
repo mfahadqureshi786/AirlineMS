@@ -15,6 +15,45 @@ else
 });	
 });
 },
+checkBalance:(CCN,Amount)=>{
+return new Promise((resolve,reject)=>{
+	var connection=require("../airlineportal.js").connection;
+connection.query(`select * from credit_card where CCARD_NUMBER=${CCN} and BALANCE>=${Amount}`,
+	(error, results, fields)=>{
+		console.log(results);
+if(error)
+	{   console.log(error);
+		reject("Either card not valid or have insufficient balance");}
+else
+	{   resolve(results);
+		
+		}
+});	
+});
+}
+,
+makePayment:(CCN,Amount)=>{
+return new Promise((resolve,reject)=>{
+	
+	var connection=require("../airlineportal.js").connection;
+connection.query(`update credit_card set BALANCE=BALANCE-${Amount} where CCARD_NUMBER=${CCN}`,
+	(error, results, fields)=>{
+		console.log(results);
+if(error)
+	{   console.log(error);
+		reject("unable to make payment");}
+else
+	{   
+       if(results.affectedRows>=1)
+		resolve("Transaction Successfully Completed!");
+	else
+		resolve("Transaction Could Not Be Completed");
+		
+		}
+});	
+});
+}
+,
 updateCustomerContact:(ID,ContactNumber)=>{
 return new Promise((resolve,reject)=>{
 	if(ContactNumber=='')

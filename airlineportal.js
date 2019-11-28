@@ -255,12 +255,13 @@ res.redirect('/customer_login');
   
   var selectedFlights=[];
   
-  app.get('/saveFlight/:option/:FLIGHT_NUMBER/:departTime/:class',(req,res)=>{
+  app.get('/saveFlight/:option/:FLIGHT_NUMBER/:departTime/:class/:price',(req,res)=>{
   console.log("at save flight route");
   var ticketSelectedNo=parseInt(req.params.option);
   console.log("TicketSelected No"+ticketSelectedNo);
   
-  var obj={FLIGHT_NUMBER:req.params.FLIGHT_NUMBER,departTime:req.params.departTime,class:req.params.class};
+  var obj={FLIGHT_NUMBER:req.params.FLIGHT_NUMBER,departTime:req.params.departTime,class:req.params.class,
+  price:parseInt(req.params.price)};
   selectedFlights[ticketSelectedNo]=obj;
   console.log(ticketSelectedNo);
   req.session.selectedFlights=selectedFlights;
@@ -273,13 +274,21 @@ res.redirect('/customer_login');
     var flightArr_local=[];
     var str=req.params.depart;
         //var fdate=str.substring(str.length, str.length-4)+'-'+str.substring(str.length-7, str.length-5)+'-'+str.substring(0, 2);
-        var fdate=str;
+    var fdate=str;      
   
-        console.log(req.params.from+req.params.to+fdate+req.params.members);
+         
+
      UserPrototype.searchFlights(req.params.from,req.params.to,fdate,req.params.members).then((result)=>{
     for (var i = 0; i < result.length; i++) {
          
-    var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,result[i].DEPARTURE_TIME,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
+  var month = result[i].DEPARTURE_TIME.getMonth() + 1; //months from 1-12
+  var day = result[i].DEPARTURE_TIME.getDate();
+  var year =result[i].DEPARTURE_TIME.getUTCFullYear();
+  console.log("flight data route,depart date is");
+  var newDate=year+"-"+month+"-"+day;
+  console.log(newDate);
+   
+    var flightObj_local=new Flight(result[i].FLIGHT_NUMBER,result[i].FLIGHT_SOURCE,result[i].FLIGHT_DESTINATION,newDate,result[i].AIRPLANE_ID,result[i].FLIGHT_CLASS,result[i].NO_OF_SEATS,result[i].PRICE);
     flightArr_local.push(flightObj_local);
     }
     res.setHeader('Content-Type', 'application/json');
@@ -293,108 +302,95 @@ res.redirect('/customer_login');
   });
   
   app.get('/payment',(req,res)=>{
-    if(req.session!=undefined && req.session.selectedFlights!=undefined && req.session.selectedFlights.length==req.session.trip_Data.length)
+    if(req.session!=undefined && req.session.selectedFlights!=undefined && req.session.trip_Data!=undefined)
       {
-
+console.log("Selected Trip Data:");
+     
 //now we find price of all tickets
 var totalMembers=parseInt(req.session.members.adults)+parseInt(req.session.members.children)+parseInt(req.session.members.infants);
 var Cost_Tickets_1=0,Cost_Tickets_2=0,Cost_Tickets_3=0;
-UserPrototype.searchFlightByID(req.session.selectedFlights[0].FLIGHT_NUMBER
-  ,req.session.selectedFlights[0].departTime,
-   req.session.selectedFlights[0].class
-  ).then((results)=>{
-  Cost_Tickets_1=totalMembers*results[0].PRICE;
+console.log("flight selected 0 depart time:");
+console.log(req.session.selectedFlights[0].departTime);
+  Cost_Tickets_1=totalMembers*req.session.selectedFlights[0].price;
+  if(req.session.selectedFlights[1]!=undefined && req.session.trip_Data[1]!=undefined)
+    Cost_Tickets_2=totalMembers*req.session.selectedFlights[1].price;
+  if(req.session.selectedFlights[2]!=undefined && req.session.trip_Data[2]!=undefined)
+    Cost_Tickets_3=totalMembers*req.session.selectedFlights[2].price;
+
+var totalPrice=Cost_Tickets_1+Cost_Tickets_2+Cost_Tickets_3;
+req.session.totalPrice=totalPrice;
   console.log("total price is for ticket 1:"+Cost_Tickets_1);
-  //ticket 2
-  if(req.session.selectedFlights[1]!=undefined)
-{
-  UserPrototype.searchFlightByID(req.session.selectedFlights[1].FLIGHT_NUMBER
-  ,req.session.selectedFlights[1].departTime,req.session.selectedFlights[1].class).then((Innerresults)=>{
-    console.log(Innerresults);
-Cost_Tickets_2=totalMembers*Innerresults[0].PRICE;
-console.log("total price is for ticket 2:"+Cost_Tickets_2);
-
- if(req.session.selectedFlights[2]!=undefined)
-{
-UserPrototype.searchFlightByID(req.session.selectedFlights[2].FLIGHT_NUMBER
-  ,req.session.selectedFlights[2].departTime,req.session.selectedFlights[2].class).then((InnerTworesults)=>{
-    Cost_Tickets_3=totalMembers*InnerTworesults[0].PRICE;
-console.log("total price is for ticket 3:"+Cost_Tickets_3);
-
-if(req.session.customer_id!=undefined)
+  console.log("total price is for ticket 2:"+Cost_Tickets_2);
+  console.log("total price is for ticket 3:"+Cost_Tickets_3);
+   if(req.session.customer_id!=undefined)
   {
      
     res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
-    members:req.session.members,IsloggedIn:true});
+    members:req.session.members,IsloggedIn:true,totalPrice:totalPrice,message:""});
 
-}
+  }
 else
-  {res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
-    members:req.session.members,IsloggedIn:false});}
+  { res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:false,totalPrice:totalPrice,message:""});
+  } 
 
+  }
 
-  }).catch((InnerTwomsg)=>{
-console.log("ticket index 2 selection price failed");
-     console.log(InnerTwomsg);
-  });
-} 
 else{
-
-
-  if(req.session.customer_id!=undefined)
-  {
-     
-    res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
-    members:req.session.members,IsloggedIn:true});
-
+  console.log("starts here");
+  console.log(req.session);
+  console.log(req.session.selectedFlights);
+  //console.log(req.session.selectedFlights.length);
+  //console.log(req.session.trip_Data.length);
+  console.log("ends here");
+  res.redirect('/'); 
 }
-else
-  {res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
-    members:req.session.members,IsloggedIn:false});}
-
-}
-
-  }).catch((Innermsg)=>{
-     console.log("ticket index 1 selection price failed");
-     console.log(Innermsg);
+  
   });
-
-
-}
-
+  app.post('/payment',(req,res)=>{
+if(req.session.customer_id!=undefined)
+  var IsloggedIn=true;
 else
-{
+  var IsloggedIn=false;
 
- if(req.session.customer_id!=undefined)
-  {
-     
-    res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
-    members:req.session.members,IsloggedIn:true});
 
-}
-else
-  {res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
-    members:req.session.members,IsloggedIn:false});}
-}
 
-  }).catch((msg)=>{
-    console.log("inner if failed");
-    console.log(msg);
-res.redirect('/');  
-  });
 
-//
+    if(req.session!=undefined && req.session.selectedFlights!=undefined){
+      console.log("Selected Trip Data:");
+      console.log(req.session.trip_Data);
+      console.log("Selected flights Final:");
+      console.log(req.session.selectedFlights);
+      
+      console.log(req.session.totalPrice);
+    UserPrototype.checkBalance(req.body.cardnumber,req.session.totalPrice).then((result)=>{
+     UserPrototype.makePayment(req.body.cardnumber,req.session.totalPrice).then((result)=>{
         
-    
-}
-else
-{
-  console.log("outer if failed");
-  console.log(req.session.selectedFlights.length+"---"+req.session.trip_Data.length);
-res.redirect('/');  
-}
+    res.render('payment.ejs',{myflights:req.session.selectedFlights,mytripdata:req.session.trip_Data,
+    members:req.session.members,IsloggedIn:IsloggedIn,totalPrice:req.session.totalPrice,message:result});
+
+  
+
+    }).catch((msg)=>{
+      console.log(msg);
+      res.redirect('/');
+    });
+
+    }).catch((msg)=>{
+console.log(msg);
+res.redirect('/');
+    });
+    }
+    else
+  {
+
+  console.log(req.body);
+  res.redirect('/payment');
+  }
+
   });
   app.get('/SearchFlights',(req,res)=>{
+
     console.log("at search flight route");
     var flightArr_local=[];
     var trip_type=req.query.exampleRadios;

@@ -194,8 +194,11 @@ function showNextFlight(row)
   children[2].innerText.length);
 console.log("departtime:"+departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+
   var xhttpSaveFlight=new XMLHttpRequest();
-  xhttpSaveFlight.open("GET",`/saveFlight/0/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.open("GET",`/saveFlight/0/${flightNum}/${departTime}/${myClass}/${price}`,true);
    
   xhttpSaveFlight.onreadystatechange=()=>{
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
@@ -244,8 +247,13 @@ console.log("ticket 1 index:"+row);
   children[2].innerText.length);
 console.log("departtime:"+departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
   var xhttpSaveFlight=new XMLHttpRequest();
-  xhttpSaveFlight.open("GET",`/saveFlight/${TicketSelectionNo-1}/${flightNum}/${departTime}/${myClass}`,true);
+  console.log("Depart time of 1st flight in round trip");
+  console.log(departTime);
+
+  xhttpSaveFlight.open("GET",`/saveFlight/0/${flightNum}/${departTime}/${myClass}/${price}`,true);
   
   xhttpSaveFlight.onreadystatechange=()=>{
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
@@ -291,6 +299,7 @@ ticketOneLength=document.querySelectorAll('.flightTicket-1').length;
 var FLIGHT_SOURCECell=document.createElement("div");
    FLIGHT_SOURCECell.classList.add("table-cell");
      var p4=document.createElement("p");
+
      p4.innerText=flightResponse[k].FLIGHT_SOURCE+" " +flightResponse[k].DEPARTURE_TIME;
     FLIGHT_SOURCECell.appendChild(p4);
 
@@ -313,7 +322,7 @@ var FLIGHT_SOURCECell=document.createElement("div");
      span2.innerText="Seats:"+flightResponse[k].NO_OF_SEATS;
      p6.appendChild(span2);p6.appendChild(document.createElement('br'));
      var span3=document.createElement("span");
-     span3.innerText="Price:"+flightResponse[k].PRICE;
+     span3.innerText="Price: "+flightResponse[k].PRICE;
      p6.appendChild(span3);
     FLIGHT_CLASSCell.appendChild(p6);
 
@@ -350,7 +359,7 @@ document.querySelector('.table-box').appendChild(divRow);
   
   }
 else if (cellOne==true && cellTwo==true)
-{
+{ 
   var rowNumber=row+2;
    console.log("rowNumber:"+rowNumber);
   var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
@@ -360,8 +369,12 @@ else if (cellOne==true && cellTwo==true)
   var departTime=element.children[2].innerText.substring(response.tripData[1].from.length+1,response.tripData[1].from.length+11);
   console.log(departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
   var xhttpSaveFlight=new XMLHttpRequest();
-  xhttpSaveFlight.open("GET",`/saveFlight/1/${flightNum}/${departTime}/${myClass}`,true);
+  console.log("Depart time of 2nd flight in round trip");
+  console.log(departTime);
+  xhttpSaveFlight.open("GET",`/saveFlight/1/${flightNum}/${departTime}/${myClass}/${price}`,true);
   xhttpSaveFlight.onreadystatechange=()=>{
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
   {
@@ -396,6 +409,7 @@ console.log("ticket 1 index:"+row);
   flightResponse=xhttp.responseText;
   flightResponse=JSON.parse(flightResponse);
   cellTwo.classList.add('ticketSelected');
+  console.log("flight response is:");
   console.log(flightResponse);
   //save selected flight
   var rowNumber=2+row;
@@ -404,14 +418,20 @@ console.log("ticket 1 index:"+row);
   
   var flightNum=element.children[1].innerText;
   console.log("row:"+row);
+  /////
+
+
+  /////
   var departTime=document.querySelectorAll('.table-box>.table-row')[row+1].
   children[2].innerText.substring(response.tripData[0].from.length+1
   ,document.querySelectorAll('.table-box>.table-row')[row+1].
   children[2].innerText.length);
 console.log("departtime:"+departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
   var xhttpSaveFlight=new XMLHttpRequest();
-  xhttpSaveFlight.open("GET",`/saveFlight/${TicketSelectionNo-1}/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.open("GET",`/saveFlight/${TicketSelectionNo-1}/${flightNum}/${departTime}/${myClass}/${price}`,true);
   xhttpSaveFlight.send();
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
   TicketSelectionNo++;
@@ -459,7 +479,7 @@ var FLIGHT_SOURCECell=document.createElement("div");
      span2.innerText="Seats:"+flightResponse[k].NO_OF_SEATS;
      p6.appendChild(span2);p6.appendChild(document.createElement('br'));
      var span3=document.createElement("span");
-     span3.innerText="Price:"+flightResponse[k].PRICE;
+     span3.innerText="Price: "+flightResponse[k].PRICE;
      p6.appendChild(span3);
     FLIGHT_CLASSCell.appendChild(p6);
     var btnCell=document.createElement("div");
@@ -499,12 +519,14 @@ else if (cellOne==true && cellTwo==true && cellThree==false)
   var departTime=element.children[2].innerText.substring(response.tripData[1].from.length+1,response.tripData[1].from.length+11);
   console.log(departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
   var xhttpSaveFlight=new XMLHttpRequest();
   console.log("Depart Time in ajax");
- var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length))+1;
+ var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length));
  departTime=departTime.substring(0,departTime.length-2)+myNewDate;
    console.log(departTime); 
-  xhttpSaveFlight.open("GET",`/saveFlight/${1}/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.open("GET",`/saveFlight/${1}/${flightNum}/${departTime}/${myClass}/${price}`,true);
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
   {
   TicketSelectionNo++;
@@ -566,7 +588,7 @@ var FLIGHT_SOURCECell=document.createElement("div");
      span2.innerText="Seats:"+flightResponse[k].NO_OF_SEATS;
      p6.appendChild(span2);p6.appendChild(document.createElement('br'));
      var span3=document.createElement("span");
-     span3.innerText="Price:"+flightResponse[k].PRICE;
+     span3.innerText="Price: "+flightResponse[k].PRICE;
      p6.appendChild(span3);
     FLIGHT_CLASSCell.appendChild(p6);
     var btnCell=document.createElement("div");
@@ -603,16 +625,19 @@ var rowNumber=row+2;
   console.log("TicketSelectionNo:"+TicketSelectionNo);
   var flightNum=element.children[1].innerText;
   var departTime=element.children[2].innerText.substring(response.tripData[2].from.length+1,response.tripData[2].from.length+11);
+  console.log("departure date of thrid selection");
   console.log(departTime);
   var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
   var xhttpSaveFlight=new XMLHttpRequest();
   console.log("Depart Time in ajax");
- var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length))+1;
+ var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length));
  departTime=departTime.substring(0,departTime.length-2)+myNewDate;
    console.log(departTime); 
    console.log("AT all true");
 
-  xhttpSaveFlight.open("GET",`/saveFlight/2/${flightNum}/${departTime}/${myClass}`,true);
+  xhttpSaveFlight.open("GET",`/saveFlight/2/${flightNum}/${departTime}/${myClass}/${price}`,true);
   
   xhttpSaveFlight.onreadystatechange=()=>{
   if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)

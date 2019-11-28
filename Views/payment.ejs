@@ -54,6 +54,8 @@
               <i class="fa fa-cc-mastercard" style="color:red;"></i>
               <i class="fa fa-cc-discover" style="color:orange;"></i>
             </div>
+            <h4><%= message %><h4>
+            <form action="payment" method="POST">
             <%  var total=members.adults+members.children+members.infants-1;%>
             <%       if (IsloggedIn==false){total++; }     %>
 <% for(var i=0;i<total;i++) { %>
@@ -101,14 +103,34 @@
                 <input type="text" id="csv" name="csv" placeholder="352">
               </div>
             </div>
+            <div class="row">
+              <div class="col-33" style="padding:0px 16px;">
+                <label for="Adults">Adults</label>
+                <input type="text" id="Adults" name="Adults" value="<%= members.adults %>" disabled="true">
+              </div>
+              <div class="col-33" style="padding:0px 16px;">
+                <label for="Children">Children</label>
+                <input type="text" id="Children" name="Children" value="<%= members.children %>" disabled="true">
+              </div>
+              <div class="col-33" style="padding:0px 16px;">
+                <label for="Members">Infants</label>
+                <input type="text" id="Infants" name="Infants" value="<%= members.infants %>" disabled="true">
+              </div>
+            </div>
+             <div class="row">
+              <div class="col" style="padding:0px 16px;">
+                <label for="price">Total Price</label>
+                <input type="text" id="totalPrice" name="price" value="<%= totalPrice %>" disabled="true">
+              </div>
+            </div>
           </div>
-          <label>
-              <input type="checkbox" checked="checked" name="sameadr"> Confirm
-            </label>
+           
+              <input type="checkbox"  name="confirmation" required>Confirm
+            
             </div>
             <input type="submit" value="Pay" class="btn">
       </div>
-
+</form>
      
      
      
