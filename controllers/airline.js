@@ -52,11 +52,11 @@ else
 });	
 });
 },
-AddInTemp:(FNO,FS,FD,DT,AI)=>{
+AddInTemp:(FNO,FS,FD,DT,AI,S,U)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../airlineportal.js").connection;
-connection.query(`INSERT INTO \`TEMP\`(\`FLIGHT_NUMBER\`,\`FLIGHT_SOURCE\`, \`FLIGHT_DESTINATION\`,\`DEPARTURE_TIME\`,\`AIRLINE_ID\`,\`ADMIN_ID\`
-) VALUES ('${FNO}','${FS}','${FD}',DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i'),'${AI}','0')`,
+connection.query(`INSERT INTO \`FLIGHT\`(\`FLIGHT_NUMBER\`,\`FLIGHT_SOURCE\`, \`FLIGHT_DESTINATION\`,\`DEPARTURE_TIME\`,\`AIRLINE_ID\`,\`FLIGHT_STATUS\`
+) VALUES ('${FNO}','${FS}','${FD}',DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i'),'${AI}','${S}')`,
 	(error, results, fields)=>{
 if(results!=undefined && results.affectedRows != 0)
 	{    
@@ -74,7 +74,7 @@ else
 AddInTempClass:(FNO,FC,DT,NS,P)=>{
 return new Promise((resolve,reject)=>{
 	var connection=require("../airlineportal.js").connection;
-connection.query(`INSERT INTO \`TEMP_CLASS\`(\`FLIGHT_NUMBER\`,\`FLIGHT_CLASS\`,\`DEPARTURE_TIME\`,\`NO_OF_SEATS\`,\`PRICE\`
+connection.query(`INSERT INTO \`FLIGHT_CLASS\`(\`FLIGHT_NUMBER\`,\`FLIGHT_CLASS\`,\`DEPARTURE_TIME\`,\`NO_OF_SEATS\`,\`PRICE\`
 ) VALUES ('${FNO}','${FC}',DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i'),'${NS}','${P}')`,
 	(error, results, fields)=>{
 if(results!=undefined && results.affectedRows != 0)
@@ -120,39 +120,44 @@ connection.query(`delete FROM FLIGHT_CLASS WHERE FLIGHT_CLASS.FLIGHT_NUMBER='${F
 });
 },
 UpdateRequestInFlight:(FNO,DT,NDT)=>{
-return new Promise((resolve,reject)=>{
-	var connection=require("../airlineportal.js").connection;
-	connection.query(`UPDATE FLIGHT SET FLIGHT.DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT.FLIGHT_NUMBER='${FNO}' AND FLIGHT.DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
-	(error, results, fields)=>{
-     
-     console.log(results," ",error);
-	if(results.affectedRows!=0)
-	{
-		
-		resolve(results);
-	}
-	else
-		
-		reject("unable to fetch error:"+error);
+	return new Promise((resolve,reject)=>{
+		var connection=require("../airlineportal.js").connection;
+		connection.query(`update FLIGHT SET FLIGHT.DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i') WHERE FLIGHT.FLIGHT_NUMBER='${FNO}' AND FLIGHT.DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
+		(error, results, fields)=>{
+		 
+		 console.log(results," ",error);
+		if(results.affectedRows!=0)
+		{
+			
+			resolve(results);
+		}
+		else
+			{
+				console.log("here error");
+				reject("unable to fetch error:"+error);
+			}	
+		});
 	});
-});
-},
-UpdateRequestInFlightClass:(FNO,DT,NDT)=>{
-return new Promise((resolve,reject)=>{
-	var connection=require("../airlineportal.js").connection;
-	connection.query(`UPDATE FLIGHT_CLASS SET DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT_NUMBER='${FNO}' AND DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
-	(error, results, fields)=>{
-
-	console.log(results);	
-	if(results.affectedRows!=0)
-	{
-		resolve(results);
-	}
-	else
-		reject("unable to fetch error:"+error);
+	},
+	UpdateRequestInFlightClass:(FNO,DT,NDT)=>{
+	return new Promise((resolve,reject)=>{
+		var connection=require("../airlineportal.js").connection;
+		connection.query(`update FLIGHT_CLASS SET DEPARTURE_TIME= DATE_FORMAT('${NDT}', '%Y-%m-%dT%H:%i')WHERE FLIGHT_NUMBER='${FNO}' AND DEPARTURE_TIME =DATE_FORMAT('${DT}', '%Y-%m-%dT%H:%i')`,
+		(error, results, fields)=>{
+	
+		console.log(results);	
+		if(results.affectedRows!=0)
+		{
+			
+			resolve(results);
+		}
+		else
+			{
+				reject("unable to fetch error:"+error);
+			}
+		});
 	});
-});
-}
+	}
 };
 module.exports.airlinePrototype=airlinePrototype;
 

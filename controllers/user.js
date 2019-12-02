@@ -239,7 +239,7 @@ return new Promise((resolve,reject)=>{
 	var newCnic=parseInt(req.body.cnic.substring(0,5)+req.body.cnic.substring(6,14)+req.body.cnic.substring(15,16));
 	console.log(newCnic);
 connection.query(`insert into customer (CUSTOMER_ID,\`cnic\`,\`CUSTOMER_PASSWORD\`,\`email\`,\`FIRST_NAME\`
-	,\`LAST_NAME\`,\`country\`,\`Address\`,\`DATE_OF_BIRTH\`) 
+	,\`LAST_NAME\`,\`COUNTRY\`,\`Address\`,\`DATE_OF_BIRTH\`) 
 	values(${ID},${newCnic},'${req.body.password}','${req.body.email}','${req.body.first_name}',
 	'${req.body.last_name}','${req.body.country}','${req.body.Address}','1111-11-11')`
 	, function (error, results, fields) {
@@ -290,7 +290,8 @@ return new Promise((resolve,reject)=>{
 			
 	if(results!=undefined)
 		{//if(results[0].flight_int!="")
-	
+	console.log("Search flight results:");
+	    console.log(results);
 		resolve(results);
 	}
 	else
