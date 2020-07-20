@@ -1,8 +1,9 @@
 Open project with chrome
 Database:nodemysql
 
+Root route Fahad
 
--------Naveed
+-------Zain
 User info registered at http://localhost:3001/Signup
 It shows not successful but it is successful
 http://localhost:3001/AirlineLogin
@@ -17,4 +18,4 @@ User info hardcoded
 Username:talhajamal197 
 Password:pakistan
 
-Root route Fahad
+
