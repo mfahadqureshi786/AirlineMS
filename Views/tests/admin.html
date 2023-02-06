@@ -1,0 +1,288 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../public/styles/admin.css">
+   
+</head>
+
+
+
+<body>
+
+
+        <p class="endgame">SkyTec Admin Panel</p>
+        <div class="topnav">
+                <p class="skytec">SkyTec Admin Panel</p>
+                <a href="#signout">Signout</a>
+                
+                <a href="#Reservations">Reservation</a>
+                <a href="#CheckFlight">Check Flight</a>
+                <a href="#home">Home</a>
+               
+                
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+         <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'addflight')">Add Flight</button>
+                <button class="tablinks" onclick="openCity(event, 'flightReq')">Flight  Request</button>
+                <button class="tablinks" onclick="openCity(event, 'searchFlight')">Search And Delete Flight</button>
+                
+                
+              
+        </div>
+              
+              <div id="addflight" class="tabcontent">
+                    <div class="container">
+                            <form action="">
+                              <div class="row">
+                                
+                                <div class="col-25">
+                                  <label for="flightNumber">Flight Number</label>
+                                </div>
+                               
+                                <div class="col-75">
+                                  <input type="text" id="flightNumber" name="flightNumber" placeholder="Flight Number..">
+                                </div>
+                                
+                              </div>
+
+                              <div class="row">
+                                    
+                                    <div class="col-25">
+                                    <label for="departure">Departure</label>
+                                    </div>
+                                    <div class="col-75">
+                                    <input type="text" id="departure" name="departure" placeholder="departure..">
+                                    </div>
+                                    
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="col-25">
+                                    <label for="source">Source</label>
+                                    </div>
+                                    <div class="col-75">
+                                    <input type="text" id="source" name="d" placeholder="source..">
+                                    </div>
+                                    
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="col-25">
+                                    <label for="airplaneId">Airplane Id</label>
+                                    </div>
+                                    <div class="col-75">
+                                    <input type="text" id="airplaneId" name="airplaneId" placeholder="airplane id..">
+                                    </div>
+                                    
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="col-25">
+                                    <label for="source date">Source Date</label>
+                                    </div>
+                                    <div class="col-75">
+                                            <input type="text" name="sourceDate" placeholder="YYYY-MM-DD" required 
+                                            pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" 
+                                            title="Enter a date in this format YYYY-MM-DD"/>
+                                    </div>
+                                    
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="col-25">
+                                    <label for="departure date">Departure Date</label>
+                                    </div>
+                                    <div class="col-75">
+                                            <input type="text" name="departureDate" placeholder="YYYY-MM-DD" required 
+                                            pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" 
+                                            title="Enter a date in this format YYYY-MM-DD"/>
+                                    </div>
+                                    
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="col-25">
+                                    <label for="departureTime">Departure Time</label>
+                                    </div>
+                                    <div class="col-75">
+                                            <input type="time" name="departureTime">
+                                    </div>
+                                    
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="col-25">
+                                    <label for="SourceTime">Source Time</label>
+                                    </div>
+                                    <div class="col-75">
+                                            <input type="time" name="SourceTime">
+                                    </div>
+                                    
+                            </div>
+
+                            
+                              
+                              
+                            <div class="row">
+                                <input type="submit" value="Submit"><input type="submit" value="Update">
+                              </div>
+                              
+                              
+                              
+                            </form>
+                          </div>                
+                
+              </div>
+              
+              <div id="flightReq" class="tabcontent">
+                                <div class="container">
+                                        <table >
+                                                <tr>
+                                                        <th style="width:12% " >Flight Number </th>
+                                                        <th  style="width:12%" >Source</th>
+                                                        <th   style="width:12%"  >Destination </th>
+                                                        <th  style="width:12%" >Time</th>
+                                                        <th  style="width:12%" >Stay</th>
+                                                        
+
+                                                        
+                                                       
+                                                </tr>
+                                                <tr>
+                                                  
+                                                  <td><i class="fa fa-check">123</i></td>
+                                                  <td><i class="fa fa-check">pakistan</i></td>
+                                                  <td><i class="fa fa-check">india</i></td>
+                                                  <td><i class="fa fa-check">00:00am</i></td>
+                                                  <td><i class="fa fa-check">3</i></td>
+                                                  <td><i>  <button class ="buttonAccept">Accept</button> <button class ="buttonReject">Reject</button></i></td>
+                                                  
+                                
+                                                </tr>
+                                                <tr>
+                                                        <td><i class="fa fa-check">123</i></td>
+                                                  <td><i class="fa fa-check">pakistan</i></td>
+                                                  <td><i class="fa fa-check">india</i></td>
+                                                  <td><i class="fa fa-check">00:00am</i></td>
+                                                  <td><i class="fa fa-check">3</i></td>
+                                                        <td><i>  <button class ="buttonAccept">Accept</button> <button class ="buttonReject">Reject</button></i></td>
+                                                </tr>
+                                             
+                                                <tr>
+                                                        <td><i class="fa fa-check">123</i></td>
+                                                  <td><i class="fa fa-check">pakistan</i></td>
+                                                  <td><i class="fa fa-check">india</i></td>
+                                                  <td><i class="fa fa-check">00:00am</i></td>
+                                                  <td><i class="fa fa-check">3</i></td>
+                                                  <td><i>  <button class ="buttonAccept">Accept</button> <button class ="buttonReject">Reject</button></i></td>
+                                      
+                                               </tr> 
+                                               
+                                            
+                                            </table>
+                                </div>                
+                        
+                        </div>
+                        <div id="searchFlight" class="tabcontent">
+                                <div class="container">
+                                        
+                                          <div class="row">
+                                            
+                                            <div class="col-25">
+                                              <label for="search">Search</label>
+                                            </div>
+                                           
+                                            <div class="col-75">
+                                              <input type="text" id="flightNumber" name="searchflight" placeholder="Search Flight Id..">
+                                              <input type="submit" value="Search">
+                                            </div>
+                                            
+                                          </div>
+                                          <div>
+                                                <table >
+                                                        <tr>
+                                                                <th style="width:12% " >Flight Number </th>
+                                                                <th  style="width:12%" >Source</th>
+                                                                <th   style="width:12%"  >Destination </th>
+                                                                <th  style="width:12%" >Time</th>
+                                                                <th  style="width:12%" >Stay</th>
+                                                                
+                                                               
+                                                        </tr>
+                                                        <tr>
+                                                          
+                                                          <td><i class="fa fa-check">123</i></td>
+                                                          <td><i class="fa fa-check">pakistan</i></td>
+                                                          <td><i class="fa fa-check">india</i></td>
+                                                          <td><i class="fa fa-check">00:00am</i></td>
+                                                          <td><i class="fa fa-check">3</i></td>
+                                                          <td><i><button class ="buttonReject">Cancel</button></i></td>
+                                                          
+                                        
+                                                        
+                                                       
+                                                    
+                                                    </table>
+                                          </div>
+            
+                                         
+                                          
+                                          
+                                          
+                                        </form>
+                                      </div>                
+                            
+                          </div>
+
+              </div>
+              
+              
+            
+            
+              <script>
+                    function openCity(evt, cityName) {
+                    // Declare all variables
+                    var i, tabcontent, tablinks;
+                    
+                    // Get all elements with class="tabcontent" and hide them
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+
+                    // Get all elements with class="tablinks" and remove the class "active"
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+
+                    // Show the current tab, and add an "active" class to the link that opened the tab
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                    }              
+              </script>
+</body>
+
+</html>

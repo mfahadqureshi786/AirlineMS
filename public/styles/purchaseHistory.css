@@ -1,0 +1,413 @@
+		#myNavBar{
+	font-size: 18px;
+}
+
+
+
+
+.topnav {
+    background-color:#304861;;
+    overflow: hidden;
+    height: 60px;
+  }
+  .endgame{
+    display: none;
+  }
+  .topnav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  }
+  
+  .topnav a:hover {
+    background-color: green;
+    color: White;
+  }
+  
+  .topnav a.active {
+    background-color: #304861;;
+    color: white;
+  }
+
+  .skytec{
+      float: left;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      padding-left: 23px;;
+      color: yellow;
+      font-size: 21px;
+    }
+    @media screen and (max-width: 600px) {
+        .skytec{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding: 20px;
+        }
+        .topnav{
+            height: 55px;
+            
+        }
+        .topnav a:not(:first-child) {
+            font-size: 16px;
+         }
+        .topnav a.icon {
+          float: right;
+          display: block;
+          
+        }
+        .topnav a{
+            font-size: 15px;;
+            
+            align-content: center;
+            text-align: center;
+      float: none;
+        }
+        .topnav a:hover {
+          background-color: green;
+          color: White;
+           height: 10px;
+        }
+      }
+      
+      /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+      @media screen and (max-width: 600px) {
+        .skytec{
+          display: none;
+        }
+        .endgame{
+          display: flex;
+          color: yellow;;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-size: 30px;;
+        padding-left: 45%;
+        background-color: #304861;
+          ;
+        }
+        .topnav{
+          height: 80px;
+          padding-top: 10px;
+        }
+        
+        .topnav a{
+          padding-left: 10px;
+            font-size: 9px;
+            size: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 10px;padding-top: 10px;
+          
+
+            
+        }
+        
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #304861;;
+   position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+
+  .sidebar a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  }
+  
+  .sidebar a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .sidebar a:hover:not(.active) {
+    background-color: green;
+    color: white;
+  }
+  
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      
+    }
+    .sidebar a {float: left;
+    font-size: 14px;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+      font-size: 17px;;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @media screen and (max-width: 600px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+       
+    }
+  }
+  table {
+    padding-top: 10%;
+  border-collapse: collapse;
+ 
+  width: 50%;
+ 
+  align-items: center;
+  padding:20px;
+  display: block;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+th, td {
+
+  text-align: center;
+  padding: 20px;
+  width: 20px;
+}
+td{
+    padding: 50px;
+}
+
+th:first-child, td:first-child {
+  text-align: center;
+}
+
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  
+}
+
+.fa-check {
+  color: green;
+}
+
+.fa-remove {
+  color: red;
+}
+.duration{
+  color: green;
+}
+.price{
+  color: red;
+}
+
+.flightName{
+  color:green;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+th { background: #c5c5c5;}
+table {
+      border-collapse: collapse;
+      
+      font: normal 12px arial; 
+      width: 100%;
+}
+td, th {}
+
+
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+    
+              table, thead, tbody, th, td, tr { 
+                      display: block; 
+                      text-align: center;
+              }
+              table{
+                  width: 70%;
+                  text-align: center;
+                  padding: 19%;
+                  
+              }
+              thead tr { 
+                      position: absolute;
+                      top: -9999px;
+                      left: -9999px;
+                      text-align: center;
+                   
+              }
+              
+              tr { border: 2px solid rgb(195, 187, 187)219, 208, 208)219, 208, 208)219, 208, 208)219, 208, 208);
+              border-radius: 10px;}
+
+              td { 
+                 
+                   border: none;
+                   
+                   position: relative;
+                   padding: 10px;
+                   
+                   
+              }
+              th{
+                  display: none;
+              }
+              td:before { 
+                     
+                      
+                      
+                     
+                      white-space: nowrap;
+                      font-weight: bold;
+                   
+                      
+  text-align: center;
+  
+  width: 20px;
+              }
+              /* Section six*/
+
+              td:nth-of-type(1):before { content: "Ticket ID :"; }
+              td:nth-of-type(2):before { content: "Ticket Status"; }
+              td:nth-of-type(3):before { content: "Amount"; }
+              td:nth-of-type(4):before { content: "Passenger ID"; }
+              
+             
+}
+
+/* Section seven*/
+      @media only screen
+      and (min-device-width : 320px)
+      and (max-device-width : 480px) {
+              body { 
+                      padding: 0; 
+                      margin: 0; 
+                      width: 320px; }
+              }
+/* Section eight*/
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+              body { 
+                      width: 95px; 
+              }
+      }
+
+
+
+
+footer{
+padding-top: 10%;
+}
+.footer{
+padding-left: 40%;
+color: #ddd;
+background-color: #304861;
+
+}
+
+footer{
+    padding-top: 10%;
+    
+    
+  }
+  .footer{
+    padding-left: 40%;
+    color: #ddd;
+    background-color: #304861;
+
+    
+  }
+  .footer h4{border: 2px solid #304861;
+    padding: 3px;
+   
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    height: 30px;
+  }
+  .side,.main{
+    display: in;
+  }

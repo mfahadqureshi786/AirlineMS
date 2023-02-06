@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			padding: 0px;
+			margin: 0px;
+		}
+		.table-box{
+			margin: 50px auto;
+			
+		}
+		.table-row{
+			width: 80%;
+			margin: 10px auto;
+			display: table;
+			padding: 12px auto;
+			box-shadow: 0px 3px 5px 0px #7BA3E0;
+		}
+		.table-cell{
+			display: table-cell;
+			width: 14.28%;
+			text-align: center;
+			padding: 4px 0;
+			border-right: 1px solid #d6d4d4;
+			vertical-align: baseline;
+		}
+		.table-head{
+			font-weight: 750;
+			box-shadow: none;
+			background-color: #8665f7;
+			color: #fff;
+
+		}
+		.table-head>.table-cell{
+        border-right: none;
+		}
+		.table-row>.table-cell:nth-of-type(1){
+			
+			padding-left: 10px;
+		}
+		.table-cell>p>img{
+	max-width: 40px;
+	width: 40px;
+	height: 33px;
+	margin: 0 auto 5px;
+	display: block;
+		}
+		.table-cell>button{
+			vertical-align: baseline;
+		}
+		div.search-box{
+			margin: 50px auto;
+		}
+		h3{
+			text-align: center;
+			color: blue;
+		}
+	</style>
+<h3>Search Results</h3>
+<div class="table-box">
+	<div class="table-row table-head">
+		<div class="table-cell">
+			<p>Airline</p>
+		</div>
+		<div class="table-cell">
+			<p>Flight NO</p>
+		</div>
+			<div class="table-cell">
+			<p>Departure</p>
+		</div>
+			<div class="table-cell">
+			<p>Arrival </p>
+		</div>
+	    <div class="table-cell">
+			<p>Duration</p>
+		</div>
+		<div class="table-cell">
+			<p>Price</p>
+		</div>
+		<div class="table-cell">
+			<p>Selection</p>
+		</div>
+	</div>
+	<div class="table-row">
+		<div class="table-cell">
+			<p><img src="../public/assets/airlines/AC.png"></p>
+			<p>Air canada</p>
+		</div>
+		<div class="table-cell">
+			<p>Ca4343</p>
+		</div>
+			<div class="table-cell">
+			<p>Canada 3:30pm</p>
+		</div>
+			<div class="table-cell">
+			<p>Pakistan 12:00am</p>
+		</div>
+	    <div class="table-cell">
+			<p>6:00 hrs</p>
+		</div>
+		<div class="table-cell">
+			<p>Pkr140,0000</p>
+			
+		</div>
+		<div class="table-cell">
+			<button class="btn btn-danger">Select</button>
+			
+		</div>
+			
+			
+		
+	</div>
+</div>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<!--Bootstrap starts here-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles/home.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/resources/demos/style.css">
+
+<link href="https://fonts.googleapis.com/css?family=Satisfy&display=swap" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+	<title>Welcome to SkyTek</title>
+</head>
+<body>
+
+<nav id="myNavBar"class="navbar navbar-expand-lg navbar-dark">
+  <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:rgb(0, 123, 255);">SkyTek</span></a></div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+    	 <ul class="navbar-nav ml-auto">
+    	 	<li><a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a></li>
+      
+      <li><a class="nav-item nav-link" href="customer_login">Login</a></li>
+      
+      
+      </ul>
+    
+  </div>
+</nav>  
+  <p class="lead">
+  Welcome to SkyTek! World's leading place for your ease in travelling by Air.  
+  </p>
+<form action="/searchFlights" method="GET">
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="oneWay" value="oneWay" checked>
+  <label class="form-check-label" for="oneWay">
+    One way
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input"  type="radio" name="exampleRadios" id="roundTrip" value="roundTrip" checked>
+  <label class="form-check-label" for="roundTrip" >
+    Round trip
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="multiCity" value="multiCity" checked>
+  <label class="form-check-label" for="multiCity">
+    Multi-city
+  </label>
+</div>
+<div class="fromTo">
+  <input class="form-control" type="text" placeholder="From" name="from">
+	<p style="font-size: 30px;"><i class="fa fa-exchange" aria-hidden="true"></i></p>
+<input class="form-control" type="text" placeholder="To" name="to">
+</div>
+
+<div class="departReturn">
+	<div id="depart" class="depart toggleDepartOn">
+<label for="depart">Depart<i  class="fa fa-calendar"></i></label><input name="depart" type="text" id="datepicker1" readonly></div>
+<div id="return" class="return toggleReturnOff">
+<label>Return<i  class="fa fa-calendar"></i></label><input type="text"  id="datepicker2" name="return" readonly></div>
+</div>
+
+<div class="fromTo fromTo-toggleOff">
+  <input class="form-control" type="text" placeholder="From" name="from" value="">
+	<p style="font-size: 30px;"><i class="fa fa-exchange" aria-hidden="true"></i></p>
+<input class="form-control" type="text" placeholder="To" name="to" value=""></div>
+
+<div class="departReturn">
+	<div id="depart" class="depart toggleDepartOff">
+<label for="depart">Depart<i  class="fa fa-calendar"></i></label><input name="depart" type="text"  id="datepicker3" readonly></div>
+
+</div>
+
+<div class="fromTo fromTo-toggleOff"><input class="form-control" type="text" placeholder="From" name="from">
+	<p style="font-size: 30px;"><i class="fa fa-exchange" aria-hidden="true"></i></p>
+<input class="form-control" type="text" placeholder="To" name="to"></div>
+
+<div class="departReturn">
+	<div id="depart" class="depart toggleDepartOff">
+<label for="depart">Depart<i  class="fa fa-calendar"></i></label><input name="depart" type="text" id="datepicker4" readonly></div>
+
+</div>
+     <div class="form-group">
+    <label for="adults">Adults</label>
+    <select class="form-control" id="adults" name="adults">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+</div>
+     <div class="form-group">
+     <label for="children">Children</label>
+    <select class="form-control" id="childrens" name="children">
+      <option>0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="infants">Infants</label>
+    <select class="form-control" id="infants" name="infants">
+      <option>0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+ <button  type="submit" class="btn btn-primary btn-md" style="margin: 5px auto;margin-left: 20px;">Search</button>
+</form>
+<hr class="my-4">    
+<div class="jumbotron1">
+  
+  <img id="planeSlide" src="assets/plane-2.jpg">
+    <div class="centered"><p>Perfect Smart solution for your convenience</p></div>
+</div>
+<div class="footer">
+	<div class="footer-content">
+		<div class="footer-section about"></div>
+		<div class="footer-section contact-form"></div>
+	</div>
+	<div class="footer-bottom">
+		<p>&copy; SkyTek.com | Designed by M.Fahad Qureshi</p>
+	</div>
+</div>
+<script type="text/javascript" src="scripts/home.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker1,#datepicker2,#datepicker3,#datepicker4,#datepicker5,#datepicker6").datepicker();
+  } );
+  </script>
+</body>
+</html>

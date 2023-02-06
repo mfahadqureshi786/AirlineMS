@@ -1,0 +1,93 @@
+<html>
+<head>
+	<title>Edit Profile</title>
+		<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+
+  <link rel="stylesheet" type="text/css" href="styles/profile.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+
+
+<div class="topnav" id="myTopnav">
+<div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
+ 
+  <a href="/Signup">Signout</a>
+  <a href="/DelayFlight">Delay Flight</a>
+  <a href="/CancelFlight">Cancel Flight</a>
+  <a href="/AddFlight">Add Flight</a>
+  <a href="/temp" >Pending Flights</a>
+  <a href="/AddintoFlight">Scheduled Flights</a>
+  <a href="/Profile" class="active">Profile</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+ </div>
+<div>
+</div>
+ <p><h5>Welcome to SkyTek! World's leading place for your ease in travelling by Air.</h5></p>
+</div>
+
+
+
+<div class="container">
+  <form action="/updateprofile" method="POST">
+    <div class="row">
+      <div class="col-25">
+        <label for="AirlineID">Airline ID</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="AirlineID" name="AirlineID" readonly placeholder="<%=F[0].AIRLINE_ID%>" value="<%=F[0].AIRLINE_ID%>" required>
+      </div>
+    </div>
+    <div class="row">
+     <div class="col-25">
+      <label for="AirlineName">Airline Name</label>
+     </div>
+     <div class="col-75">
+      <input type="text" id="AirlineName" name="AirlineName" readonly placeholder="<%=F[0].AIRLINE_NAME%>" value="<%=F[0].AIRLINE_NAME%>" required>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col-25">
+      <label for="OldPassword">Old Password</label>
+     </div>
+     <div class="col-75">   
+      <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" title="At least one number,one uppercase,lowercase letter,8 till 50 characters" type="password" placeholder="Current Password" name="OldPassword" required>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col-25">
+       <label for="NewPassword">New Password</label>
+     </div>
+     <div class="col-75">
+      <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" title="At least one number,one uppercase,lowercase letter,8 till 50 characters" type="password" placeholder="New Password" name="NewPassword" required>
+     </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Update Airline Profile">
+    </div>
+  </form>
+</div>
+
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>

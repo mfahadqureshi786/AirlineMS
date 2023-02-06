@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>Cancel Flight</title>
+		<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="styles/cancelflight.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+<div class="topnav" id="myTopnav">
+<div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
+ 
+  <a href="/Signup">Signout</a>
+  <a href="/DelayFlight">Delay Flight</a>
+  <a href="/CancelFlight"class="active">Cancel Flight</a>
+  <a href="/AddFlight">Add Flight</a>
+  <a href="/temp" >Pending Flights</a>
+  <a href="/AddintoFlight">Scheduled Flights</a>
+  <a href="/Profile">Profile</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+ </div>
+<div>
+</div>
+ <p><h5>Welcome to SkyTek! World's leading place for your ease in travelling by Air.</h5></p>
+</div>
+
+
+<div class = "bg-img">
+<div class="container">
+  <form action="/cancelinflight" method="POST">
+    <div class="row">
+      <div class="col-25">
+        <label for="Airline ID">Airline ID</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="Airline ID" name="AirlineID" readonly placeholder="<%=F%>" value="<%=F%>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="Flight Number">Flight Number</label>
+      </div>
+      <div class="col-75">
+        <input pattern="^[a-zA-Z][a-zA-Z0-9\s]{1,50}$" title ="Enter Valid String" type="text" id="Flight Number" name="FlightNumber" placeholder="Flight Number" required>
+      </div>
+    </div>
+
+    <div class="row">
+     <div class="col-25">
+       <label for="Departure Time">Departure Time</label>
+      </div>
+     <div class="col-75">
+       <input type="datetime-local" id="Departure Time" name="DepartureTime" placeholder="Departure Time"required>
+     </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Request Flight For Cancel">
+    </div>
+  </form>
+</div>
+</div>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>

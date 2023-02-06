@@ -1,0 +1,172 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-size: 18px;
+}
+#myNavBar{
+	background-color: #304861;
+}
+#myNavBar .nav-link{
+	
+	/*color:#007bff;*/
+}
+
+#brandPlane{
+	text-decoration:none;
+}
+#brandPlane:focus,#brandPlane>span:hover{
+color:#0056b3 !important;
+}
+div.jumbotron1{
+	font-size: 15px;
+	background-color: #ffff;
+  position: relative;
+  text-align: center;
+  color: black;
+}
+div.jumbotron1 p{
+	 position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 4vw;
+  font-weight: 700;
+  color: #b3a512;
+  transform: translate(-50%, -50%);
+    font-family: 'Satisfy', cursive;
+}
+div.jumbotron1 p:hover{
+	color: #1f252b;
+	font-weight: 750;
+}
+p.lead{
+	font-size: 25px;
+	text-align: center;
+    
+}
+div.form-check{
+	margin-left: 10px;
+}
+@media only screen and (min-width: 1130px){
+div.form-check{
+	margin-left: 20px;
+}
+}
+
+div.form-check>input.form-check-input{
+	position: relative;
+	margin-left: 5px;
+}
+div.form-check>label.form-check-label{
+margin-left: 10px;	
+}
+div.form-check:nth-of-type(3){
+	clear: both;
+}
+.fromTo-toggleOff{
+	display: none;
+}
+.fromTo-toggleOn{
+	display: block;
+}
+input.form-control[placeholder="From"]{
+	float: left;
+}
+@media only screen and (min-width:742px){
+	div.fromTo>p{
+	margin-left: 45px;
+	}
+}
+div.fromTo>p{
+	position: relative;
+	margin-left: 35px;
+	display: inline-block;
+	float: left;
+}
+div.fromTo>p:after{
+	clear: left;
+}
+input.form-control{
+	position: relative;
+	width: 30%;
+	left:2%;
+
+}
+.departReturn{
+	clear: both;
+	width: 100%;
+}
+@media only screen and (max-width: 842px){
+	#return,.return{
+		margin-left: 20px;
+
+	}
+}
+p>i.fa-calender{
+	position: relative;
+
+}
+#datepicker1,#datepicker2,#datepicker3,#datepicker4,#datepicker5,#datepicker6{
+	height: 58.25px;
+}
+.departReturn>p{
+	width: 33.3%;
+}
+.depart{
+	margin-left: 20px;
+	display: inline-block;
+	height: 58.25px;
+}
+@media only screen and (min-width: 843px){
+#return,.return{
+margin-left: 10px;
+}	
+}
+.toggleDepartOn
+{
+	display: inline-block;
+}
+.toggleDepartOff{
+display: none;
+}
+
+.toggleReturnOn
+{
+	display: inline-block;
+}
+.toggleReturnOff{
+display: none;
+}
+
+div.form-group{
+	position: relative;
+	width: 32.5%;
+    float: left;
+    
+}
+div.form-group{
+	left: 2%;
+}
+hr{
+	clear:both;
+}
+div.jumbotron1{
+background-color: #304861;	
+}
+div.jumbotron1>img{
+	width: 80%;
+
+}
+div.jumbotron1>a.btn{
+font-size: 1em;
+}
+
+div.footer,div.footer p{
+	background-color: #1c2b3b;
+	color: white;
+	margin: 0px;
+	padding:0px;
+	font-size: 1.5vw;
+	text-align: center;
+	
+
+}

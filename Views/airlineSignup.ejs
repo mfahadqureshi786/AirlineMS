@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>Airline Signup</title>
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="styles/project2.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+<div class="topnav" id="myTopnav">
+ <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a>
+ </div>
+ <a href="/AirlineLogin">Login</a>
+ <a href="/Signup" class="Active">Signup</a>
+ <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+  <i class="fa fa-bars"></i>
+ </a>
+</div>
+
+<div>
+ <p>
+  <h5>Welcome to SkyTek! World's leading place for your ease in travelling by Air.</h5>  
+ </p>
+</div>
+
+<div class="bg-img">
+  <form class="container" action="/ASignup" method ="POST">
+    <h1>Signup</h1>
+
+   <label for="AirlineID"><h6>Airline ID</h6></label>
+    <input pattern="^[a-zA-Z\s]{1,50}$" title="Only Alphabets" type="text" placeholder="Airline ID" name="AirlineID" required>
+
+   <label for="AirlineName"><h6>Airline Name</h6></label>
+    <input pattern="^[a-zA-Z\s]{1,50}$" title="Only Alphabets" type="text" placeholder="Airline Name" name="AirlineName" required>
+
+    <label for="password"><h6>Password</h6></label>
+    <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" title="At least one number,one uppercase,lowercase letter,8 till 50 characters" type="password" placeholder="Password" name="Apassword" required>
+
+    <button type="submit" class="btn">Signup</button>
+  </form>
+</div>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+</body>
+</html>

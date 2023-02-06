@@ -1,0 +1,20 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	
+}
+#myNavBar{
+	background-color: #304861;
+	font-size: 25px;
+}
+#myNavBar .nav-link{
+	
+	/*color:#007bff;*/
+}
+
+#brandPlane{
+	text-decoration:none;
+}
+#brandPlane:focus,#brandPlane>span:hover{
+color:#0056b3 !important;
+}

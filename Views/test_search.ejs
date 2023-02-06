@@ -1,0 +1,657 @@
+
+<%- include ./partials/header.ejs %>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles/navBar.css">
+<link rel="stylesheet" type="text/css" href="styles/footer.css">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			padding: 0px;
+			margin: 0px;
+		}
+		#myNavBar{
+	font-size: 18px;
+}
+		.table-box{
+			margin: 50px auto;
+			
+		}
+		.ticketSelected{
+		border-top:3px solid red;
+		border-bottom:3px solid red;
+		}
+
+		.table-row{
+			width: 80%;
+			margin: 10px auto;
+			display: table;
+			padding: 12px auto;
+			box-shadow: 0px 3px 5px 0px #7BA3E0;
+		}
+		.table-cell{
+			display: table-cell;
+			width: 14.28%;
+			text-align: center;
+			padding: 4px 0;
+			border-right: 1px solid #d6d4d4;
+			vertical-align: baseline;
+		}
+		.table-head{
+			font-weight: 750;
+			box-shadow: none;
+			background-color: #8665f7;
+			color: #fff;
+
+		}
+		.table-head>.table-cell{
+        border-right: none;
+		}
+		.table-row>.table-cell:nth-of-type(1){
+			
+			padding-left: 10px;
+		}
+		.table-cell>p>img{
+	max-width: 40px;
+	width: 40px;
+	height: 33px;
+	margin: 0 auto 5px;
+	display: block;
+		}
+		.table-cell>button{
+			vertical-align: baseline;
+		}
+		div.search-box{
+			margin: 50px auto;
+		}
+		h3{
+			text-align: center;
+			color: blue;
+		}
+
+	</style>
+	<nav id="myNavBar"class="navbar navbar-expand-lg navbar-dark">
+  <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:rgb(0, 123, 255);">SkyTek</span></a></div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+    	 <ul class="navbar-nav ml-auto">
+    	 	<li><a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a></li>
+      
+      <li><a class="nav-item nav-link" href="customer_login">Login</a></li>
+      
+      
+      </ul>
+    
+  </div>
+</nav>  
+<h3><a href="/">Search again</a></h3>
+<div class="table-row tickets">
+		
+		 <div class="table-cell ticketSelected"> 
+			<p> <%=  trip_Data[0].from +'-->'+trip_Data[0].to %> </p>
+		</div>
+		<% if(trip_type=="roundTrip" || trip_type=="multiCity") {%>
+		<div class="table-cell">
+			<p> <%=  trip_Data[1].from +'-->'+trip_Data[1].to %> </p>
+		</div>
+		<% } %>
+		<% if(trip_type=="multiCity") {%>
+			<div class="table-cell">
+			<p> <%=  trip_Data[2].from +'-->'+trip_Data[2].to %> </p>
+		</div>
+		<% }%>
+	</div>
+
+<div class="table-box">
+
+	<div class="table-row table-head">
+		<div class="table-cell">
+			<p>Airline</p>
+		</div>
+		<div class="table-cell">
+			<p>Flight NO</p>
+		</div>
+			<div class="table-cell">
+			<p>Departure</p>
+		</div>
+			<div class="table-cell">
+			<p>Arrival </p>
+		</div>
+		<div class="table-cell">
+			<p>Class,Seats and Price</p>
+		</div>
+		
+		<div class="table-cell">
+			<p>Selection</p>
+		</div>
+	</div>
+
+	
+	<% for(i=0;i<ssData.length;i++) { %>
+		 <div class="table-row flightTicket-1" name= <%= i %> + "" > 
+		 <div class="table-cell"> 
+			<p><img src="assets/airlines/AC.png"></p> 
+			 <p>Air canada</p> 
+			 </div> 
+			 <div class="table-cell"> 
+					<p> <%= ssData[i].FLIGHT_NUMBER %> </p> 
+				 </div> 
+					<div class="table-cell"> 
+						<p><%= ssData[i].FLIGHT_SOURCE+" "+ ssData[i].DEPARTURE_TIME%></p> 
+					 </div> 
+						<div class="table-cell"> 
+							<p> <%= ssData[i].FLIGHT_DESTINATION %> </p> 
+						 </div> 
+						 <div class="table-cell"> 
+								<p> <span> <%= ssData[i].FLIGHT_CLASS %> </span> </br> <span> Seats: <%= ssData[i].NO_OF_SEATS %> </span> </br> <span> Price: <%= ssData[i].PRICE %> </span> </p> 
+							 </div> 
+						
+								 <div class="table-cell"> 
+									 <button class="btn btn-danger" onclick="showNextFlight( <%= i %> )">Select</button> 
+			
+									 </div>	
+		
+									 </div> 
+									 <% } %>
+									
+</div>
+<script>
+ var TicketSelectionNo=1;
+var response;
+var ticketOneLength,ticketTwoLength,ticketThreeLength;
+ var xhttp=new XMLHttpRequest();
+  xhttp.open("GET","/myTripData",true);
+  xhttp.onreadystatechange=()=>{
+  if(xhttp.readyState==4 && xhttp.status==200){
+  console.log("Response is:");
+  response=JSON.parse(xhttp.responseText);
+  console.log(response.trip_type);
+  
+}}
+  xhttp.send(); 
+
+
+
+function showNextFlight(row)
+{
+    //select next trip if exists
+	if(response.trip_type=='oneWay')
+  {
+  var rowNumber=2+row;
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  var flightNum=element.children[1].innerText;
+  console.log("row:"+row);
+  var departTime=document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.substring(response.tripData[0].from.length+1
+  ,document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.length);
+console.log("departtime:"+departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+
+  var xhttpSaveFlight=new XMLHttpRequest();
+  xhttpSaveFlight.open("GET",`/saveFlight/0/${flightNum}/${departTime}/${myClass}/${price}`,true);
+   
+  xhttpSaveFlight.onreadystatechange=()=>{
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
+  console.log("Inside if");
+  TicketSelectionNo++;
+  window.location.href = "http://localhost:3001/payment";
+  }
+  }
+ xhttpSaveFlight.send();
+   
+  }
+  if(response.trip_type=='roundTrip')
+  {
+  //first check currently selected if 1st selected then go to next one other wise towards payment page
+  var cellOne=document.querySelector('.tickets>.table-cell:nth-child(1)').classList.contains('ticketSelected');
+  var cellTwo=document.querySelector('.tickets>.table-cell:nth-child(2)').classList.contains('ticketSelected');
+  if(cellOne==true && cellTwo==false)
+  {
+  cellTwo=document.querySelector('.tickets>.table-cell:nth-child(2)');
+  cellTwo.classList.add('ticketSelected');
+  //show page
+  var flightResponse;
+  var xhttp=new XMLHttpRequest();
+console.log("ticket 1 index:"+row);
+  xhttp.open("GET",`/flightData/${response.tripData[1].from}/${response.tripData[1].to}/${response.tripData[1].depart}/${response.members.adults+response.members.children+response.members.infants}`,true);
+  xhttp.onreadystatechange=()=>{
+  if(xhttp.readyState==4 && xhttp.status==200){
+  console.log("Response is:");
+  flightResponse=xhttp.responseText;
+  flightResponse=JSON.parse(flightResponse);
+  cellTwo.classList.add('ticketSelected');
+  console.log(flightResponse);
+  //save selected flight
+  var rowNumber=2+row;
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  console.log(element);
+
+  
+  var flightNum=element.children[1].innerText;
+  console.log("row:"+row);
+
+  var departTime=document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.substring(response.tripData[0].from.length+1
+  ,document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.length);
+console.log("departtime:"+departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+  var xhttpSaveFlight=new XMLHttpRequest();
+  console.log("Depart time of 1st flight in round trip");
+  console.log(departTime);
+
+  xhttpSaveFlight.open("GET",`/saveFlight/0/${flightNum}/${departTime}/${myClass}/${price}`,true);
+  
+  xhttpSaveFlight.onreadystatechange=()=>{
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
+  TicketSelectionNo++;
+  }
+  }
+
+  xhttpSaveFlight.send();
+  //replace all tuples with new using flightResponse
+
+  //removes ticket-1
+  for(var i=0;i<document.querySelectorAll('.flightTicket-1').length;i++)
+  document.querySelectorAll('.flightTicket-1')[i].style.display="none";
+ticketOneLength=document.querySelectorAll('.flightTicket-1').length;
+
+
+  //displaying ticket-2
+  for(var k=0;k<flightResponse.length;k++){
+
+  var divRow=document.createElement("div");
+  divRow.classList.add("table-row");divRow.classList.add("flightTicket-2");
+  divRow.setAttribute("name",parseInt(k+ticketOneLength));
+
+
+  var imageCell=document.createElement("div");
+  imageCell.classList.add("table-cell");
+    var p1=document.createElement("p");
+      var imgP1=document.createElement("img");
+      imgP1.setAttribute('src','assets/airlines/AC.png');
+      p1.appendChild(imgP1);
+    var p2=document.createElement("p");
+    p2.innerText="Air Canada";
+    imageCell.appendChild(p1);imageCell.appendChild(p2);
+
+   var flightNoCell=document.createElement("div");
+   flightNoCell.classList.add("table-cell");
+     var p3=document.createElement("p");
+     p3.innerText=flightResponse[k].FLIGHT_NUMBER;
+    flightNoCell.appendChild(p3);
+
+///////////
+var FLIGHT_SOURCECell=document.createElement("div");
+   FLIGHT_SOURCECell.classList.add("table-cell");
+     var p4=document.createElement("p");
+
+     p4.innerText=flightResponse[k].FLIGHT_SOURCE+" " +flightResponse[k].DEPARTURE_TIME;
+    FLIGHT_SOURCECell.appendChild(p4);
+
+
+
+    var FLIGHT_DESTINATIONCell=document.createElement("div");
+   FLIGHT_DESTINATIONCell.classList.add("table-cell");
+     var p5=document.createElement("p");
+     p5.innerText=flightResponse[k].FLIGHT_DESTINATION;
+    FLIGHT_DESTINATIONCell.appendChild(p5);
+
+
+    var FLIGHT_CLASSCell=document.createElement("div");
+   FLIGHT_CLASSCell.classList.add("table-cell");
+     var p6=document.createElement("p");
+     var span1=document.createElement("span");
+     span1.innerText=flightResponse[k].FLIGHT_CLASS;
+     p6.appendChild(span1);p6.appendChild(document.createElement('br'));
+     var span2=document.createElement("span");
+     span2.innerText="Seats:"+flightResponse[k].NO_OF_SEATS;
+     p6.appendChild(span2);p6.appendChild(document.createElement('br'));
+     var span3=document.createElement("span");
+     span3.innerText="Price: "+flightResponse[k].PRICE;
+     p6.appendChild(span3);
+    FLIGHT_CLASSCell.appendChild(p6);
+
+
+    var btnCell=document.createElement("div");
+   btnCell.classList.add("table-cell");
+     var btn=document.createElement("button");
+     btn.classList.add("btn");btn.classList.add("btn-danger");
+     console.log("k+ticket length:"+parseInt(k+ticketOneLength));
+     btn.addEventListener("click",function(){
+var index=parseInt(this.parentNode.parentNode.getAttribute("name"));
+     //console.log('ticket 2 button clicked index:'+parseInt(k+ticketOneLength));
+      showNextFlight(index);
+     });
+     
+     btn.innerText="Select";
+    btnCell.appendChild(btn);
+
+divRow.appendChild(imageCell);
+divRow.appendChild(flightNoCell);
+divRow.appendChild(FLIGHT_SOURCECell);
+divRow.appendChild(FLIGHT_DESTINATIONCell);
+divRow.appendChild(FLIGHT_CLASSCell);
+divRow.appendChild(btnCell);
+
+document.querySelector('.table-box').appendChild(divRow);
+
+}
+
+}
+
+}
+  xhttp.send(); 
+  
+  }
+else if (cellOne==true && cellTwo==true)
+{ 
+  var rowNumber=row+2;
+   console.log("rowNumber:"+rowNumber);
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  console.log(element);
+  console.log("TicketSelectionNo:"+TicketSelectionNo);
+  var flightNum=element.children[1].innerText;
+  var departTime=element.children[2].innerText.substring(response.tripData[1].from.length+1,response.tripData[1].from.length+11);
+  console.log(departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+  var xhttpSaveFlight=new XMLHttpRequest();
+  console.log("Depart time of 2nd flight in round trip");
+  console.log(departTime);
+  xhttpSaveFlight.open("GET",`/saveFlight/1/${flightNum}/${departTime}/${myClass}/${price}`,true);
+  xhttpSaveFlight.onreadystatechange=()=>{
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
+	TicketSelectionNo++;
+  window.location.href = "http://localhost:3001/payment";
+  }
+  }
+	xhttpSaveFlight.send();
+
+
+  }
+}
+if(response.trip_type=="multiCity")
+{
+//////////////////////////////
+//first check currently selected if 1st selected then go to next one other wise towards payment page
+  var cellOne=document.querySelector('.tickets>.table-cell:nth-child(1)').classList.contains('ticketSelected');
+  var cellTwo=document.querySelector('.tickets>.table-cell:nth-child(2)').classList.contains('ticketSelected');
+  var cellThree=document.querySelector('.tickets>.table-cell:nth-child(3)').classList.contains('ticketSelected');
+  if(cellOne==true && cellTwo==false && cellThree==false)
+  {
+  cellTwo=document.querySelector('.tickets>.table-cell:nth-child(2)');
+  cellTwo.classList.add('ticketSelected');
+  //show page
+  var flightResponse;
+  var xhttp=new XMLHttpRequest();
+console.log("ticket 1 index:"+row);
+  xhttp.open("GET",`/flightData/${response.tripData[1].from}/${response.tripData[1].to}/${response.tripData[1].depart}/${response.members.adults+response.members.children+response.members.infants}`,true);
+  xhttp.onreadystatechange=()=>{
+  if(xhttp.readyState==4 && xhttp.status==200){
+  console.log("Response is:");
+  flightResponse=xhttp.responseText;
+  flightResponse=JSON.parse(flightResponse);
+  cellTwo.classList.add('ticketSelected');
+  console.log("flight response is:");
+  console.log(flightResponse);
+  //save selected flight
+  var rowNumber=2+row;
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  console.log(element);
+  
+  var flightNum=element.children[1].innerText;
+  console.log("row:"+row);
+  /////
+
+
+  /////
+  var departTime=document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.substring(response.tripData[0].from.length+1
+  ,document.querySelectorAll('.table-box>.table-row')[row+1].
+  children[2].innerText.length);
+console.log("departtime:"+departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+  var xhttpSaveFlight=new XMLHttpRequest();
+  xhttpSaveFlight.open("GET",`/saveFlight/${TicketSelectionNo-1}/${flightNum}/${departTime}/${myClass}/${price}`,true);
+  xhttpSaveFlight.send();
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  TicketSelectionNo++;
+  //replace all tuples with new using flightResponse
+  //removes ticket-1
+  for(var i=0;i<document.querySelectorAll('.flightTicket-1').length;i++)
+  document.querySelectorAll('.flightTicket-1')[i].style.display="none";
+ticketOneLength=document.querySelectorAll('.flightTicket-1').length;
+  //displaying ticket-2
+  for(var k=0;k<flightResponse.length;k++){
+  var divRow=document.createElement("div");
+  divRow.classList.add("table-row");divRow.classList.add("flightTicket-2");
+  divRow.setAttribute("name",parseInt(k+ticketOneLength));
+  var imageCell=document.createElement("div");
+  imageCell.classList.add("table-cell");
+    var p1=document.createElement("p");
+      var imgP1=document.createElement("img");
+      imgP1.setAttribute('src','assets/airlines/AC.png');
+      p1.appendChild(imgP1);
+    var p2=document.createElement("p");
+    p2.innerText="Air Canada";
+    imageCell.appendChild(p1);imageCell.appendChild(p2);
+   var flightNoCell=document.createElement("div");
+   flightNoCell.classList.add("table-cell");
+     var p3=document.createElement("p");
+     p3.innerText=flightResponse[k].FLIGHT_NUMBER;
+    flightNoCell.appendChild(p3);
+var FLIGHT_SOURCECell=document.createElement("div");
+   FLIGHT_SOURCECell.classList.add("table-cell");
+     var p4=document.createElement("p");
+     p4.innerText=flightResponse[k].FLIGHT_SOURCE+" " +flightResponse[k].DEPARTURE_TIME;
+    FLIGHT_SOURCECell.appendChild(p4);
+    var FLIGHT_DESTINATIONCell=document.createElement("div");
+   FLIGHT_DESTINATIONCell.classList.add("table-cell");
+     var p5=document.createElement("p");
+     p5.innerText=flightResponse[k].FLIGHT_DESTINATION;
+    FLIGHT_DESTINATIONCell.appendChild(p5);
+    var FLIGHT_CLASSCell=document.createElement("div");
+   FLIGHT_CLASSCell.classList.add("table-cell");
+     var p6=document.createElement("p");
+     var span1=document.createElement("span");
+     span1.innerText=flightResponse[k].FLIGHT_CLASS;
+     p6.appendChild(span1);p6.appendChild(document.createElement('br'));
+     var span2=document.createElement("span");
+     span2.innerText="Seats:"+flightResponse[k].NO_OF_SEATS;
+     p6.appendChild(span2);p6.appendChild(document.createElement('br'));
+     var span3=document.createElement("span");
+     span3.innerText="Price: "+flightResponse[k].PRICE;
+     p6.appendChild(span3);
+    FLIGHT_CLASSCell.appendChild(p6);
+    var btnCell=document.createElement("div");
+   btnCell.classList.add("table-cell");
+     var btn=document.createElement("button");
+     btn.classList.add("btn");btn.classList.add("btn-danger");
+     console.log("k+ticket length:"+parseInt(k+ticketOneLength));
+     btn.addEventListener("click",function(){
+var index=parseInt(this.parentNode.parentNode.getAttribute("name"));
+     //console.log('ticket 2 button clicked index:'+parseInt(k+ticketOneLength));
+      showNextFlight(index);
+     });
+     
+     btn.innerText="Select";
+    btnCell.appendChild(btn);
+divRow.appendChild(imageCell);
+divRow.appendChild(flightNoCell);
+divRow.appendChild(FLIGHT_SOURCECell);
+divRow.appendChild(FLIGHT_DESTINATIONCell);
+divRow.appendChild(FLIGHT_CLASSCell);
+divRow.appendChild(btnCell);
+document.querySelector('.table-box').appendChild(divRow);
+}
+}
+}
+  xhttp.send(); 
+  
+  }
+else if (cellOne==true && cellTwo==true && cellThree==false)
+{
+  var rowNumber=row+2;
+   console.log("rowNumber:"+rowNumber);
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  console.log(element);
+  console.log("TicketSelectionNo:"+TicketSelectionNo);
+  var flightNum=element.children[1].innerText;
+  var departTime=element.children[2].innerText.substring(response.tripData[1].from.length+1,response.tripData[1].from.length+11);
+  console.log(departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+  var xhttpSaveFlight=new XMLHttpRequest();
+  console.log("Depart Time in ajax");
+ var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length));
+ departTime=departTime.substring(0,departTime.length-2)+myNewDate;
+   console.log(departTime); 
+  xhttpSaveFlight.open("GET",`/saveFlight/${1}/${flightNum}/${departTime}/${myClass}/${price}`,true);
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
+  TicketSelectionNo++;
+  }
+  xhttpSaveFlight.send();
+  //ThirdTicket
+  cellThree=document.querySelector('.tickets>.table-cell:nth-child(3)');
+  cellThree.classList.add('ticketSelected');
+  
+//removes ticket-2
+  for(var i=0;i<document.querySelectorAll('.flightTicket-2').length;i++)
+  document.querySelectorAll('.flightTicket-2')[i].style.display="none";
+ticketTwoLength=document.querySelectorAll('.flightTicket-2').length;
+//Ajax call to fetch ticket-3 tuples
+  var flightResponse;
+  var xhttp=new XMLHttpRequest();
+  xhttp.open("GET",`/flightData/${response.tripData[2].from}/${response.tripData[2].to}/${response.tripData[2].depart}/${response.members.adults+response.members.children+response.members.infants}`,true);
+  xhttp.onreadystatechange=()=>{
+  if(xhttp.readyState==4 && xhttp.status==200){
+  console.log("Response is:");
+  flightResponse=xhttp.responseText;
+  flightResponse=JSON.parse(flightResponse);
+ //displaying ticket-3
+   for(var k=0;k<flightResponse.length;k++){
+  var divRow=document.createElement("div");
+  divRow.classList.add("table-row");divRow.classList.add("flightTicket-3");
+  divRow.setAttribute("name",parseInt(k+ticketOneLength+ticketTwoLength));
+  var imageCell=document.createElement("div");
+  imageCell.classList.add("table-cell");
+    var p1=document.createElement("p");
+      var imgP1=document.createElement("img");
+      imgP1.setAttribute('src','assets/airlines/AC.png');
+      p1.appendChild(imgP1);
+    var p2=document.createElement("p");
+    p2.innerText="Air Canada";
+    imageCell.appendChild(p1);imageCell.appendChild(p2);
+   var flightNoCell=document.createElement("div");
+   flightNoCell.classList.add("table-cell");
+     var p3=document.createElement("p");
+     p3.innerText=flightResponse[k].FLIGHT_NUMBER;
+    flightNoCell.appendChild(p3);
+var FLIGHT_SOURCECell=document.createElement("div");
+   FLIGHT_SOURCECell.classList.add("table-cell");
+     var p4=document.createElement("p");
+     p4.innerText=flightResponse[k].FLIGHT_SOURCE+" " +flightResponse[k].DEPARTURE_TIME;
+    FLIGHT_SOURCECell.appendChild(p4);
+    var FLIGHT_DESTINATIONCell=document.createElement("div");
+   FLIGHT_DESTINATIONCell.classList.add("table-cell");
+     var p5=document.createElement("p");
+     p5.innerText=flightResponse[k].FLIGHT_DESTINATION;
+    FLIGHT_DESTINATIONCell.appendChild(p5);
+    var FLIGHT_CLASSCell=document.createElement("div");
+   FLIGHT_CLASSCell.classList.add("table-cell");
+     var p6=document.createElement("p");
+     var span1=document.createElement("span");
+     span1.innerText=flightResponse[k].FLIGHT_CLASS;
+     p6.appendChild(span1);p6.appendChild(document.createElement('br'));
+     var span2=document.createElement("span");
+     span2.innerText="Seats:"+flightResponse[k].NO_OF_SEATS;
+     p6.appendChild(span2);p6.appendChild(document.createElement('br'));
+     var span3=document.createElement("span");
+     span3.innerText="Price: "+flightResponse[k].PRICE;
+     p6.appendChild(span3);
+    FLIGHT_CLASSCell.appendChild(p6);
+    var btnCell=document.createElement("div");
+   btnCell.classList.add("table-cell");
+     var btn=document.createElement("button");
+     btn.classList.add("btn");btn.classList.add("btn-danger");
+     console.log("k+ticket length:"+parseInt(k+ticketOneLength));
+     btn.addEventListener("click",function(){
+var index=parseInt(this.parentNode.parentNode.getAttribute("name"));
+     
+      showNextFlight(index);
+     });
+     
+     btn.innerText="Select";
+    btnCell.appendChild(btn);
+divRow.appendChild(imageCell);
+divRow.appendChild(flightNoCell);
+divRow.appendChild(FLIGHT_SOURCECell);
+divRow.appendChild(FLIGHT_DESTINATIONCell);
+divRow.appendChild(FLIGHT_CLASSCell);
+divRow.appendChild(btnCell);
+document.querySelector('.table-box').appendChild(divRow);
+}
+}
+}
+xhttp.send();
+  }
+ else if (cellOne==true && cellTwo==true && cellThree==true) 
+ {
+var rowNumber=row+2;
+   console.log("rowNumber:"+rowNumber);
+  var element=document.querySelector('.table-box>.table-row:nth-child('+rowNumber+')');
+  console.log(element);
+  console.log("TicketSelectionNo:"+TicketSelectionNo);
+  var flightNum=element.children[1].innerText;
+  var departTime=element.children[2].innerText.substring(response.tripData[2].from.length+1,response.tripData[2].from.length+11);
+  console.log("departure date of thrid selection");
+  console.log(departTime);
+  var myClass=element.children[4].children[0].children[0].innerText;
+  var p=element.children[4].children[0].children[4].innerText;
+  var price=p.substring(7,p.length);
+  var xhttpSaveFlight=new XMLHttpRequest();
+  console.log("Depart Time in ajax");
+ var myNewDate=parseInt(departTime.substring(departTime.length-2,departTime.length));
+ departTime=departTime.substring(0,departTime.length-2)+myNewDate;
+   console.log(departTime); 
+   console.log("AT all true");
+
+  xhttpSaveFlight.open("GET",`/saveFlight/2/${flightNum}/${departTime}/${myClass}/${price}`,true);
+  
+  xhttpSaveFlight.onreadystatechange=()=>{
+  if(xhttpSaveFlight.readyState==4 && xhttpSaveFlight.status==200)
+  {
+  console.log("Inside if");
+  TicketSelectionNo++;
+  window.location.href = "http://localhost:3001/payment";
+  }
+  }
+ xhttpSaveFlight.send();
+ 
+ }
+  ///////////////////////////////////////// 
+}
+}//Function end braces
+</script>
+<%- include ./partials/footer.ejs %>

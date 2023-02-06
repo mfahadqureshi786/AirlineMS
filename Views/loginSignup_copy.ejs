@@ -1,0 +1,71 @@
+
+<%- include ./partials/header.ejs %>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles/navBar.css">
+<link rel="stylesheet" type="text/css" href="styles/footer.css">
+<link rel="stylesheet" type="text/css" href="styles/loginSignup.css">
+</head>
+<body>
+	<nav id="myNavBar"class="navbar navbar-expand-lg navbar-dark">
+  <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:rgb(0, 123, 255);">SkyTek</span></a></div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+    	 <ul class="navbar-nav ml-auto">
+    	 	<li><a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a></li>
+      
+      <li><a class="nav-item nav-link" href="customer_login">Login</a></li>
+      
+      
+      </ul>
+    
+  </div>
+</nav>  
+<div class="FormDiv">
+	<button type="button" name="signupSwitch" class="btn-lg btn-block btn btn-light btn-sm" onclick="switchLoginSignup()">Login/Signup</button>
+<form class="loginForm" action="/customer_login" method="post">
+  <div>
+  	<p style="text-align: center;"><label for="email" class="fa fa-user"></label></p>
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div>
+  	<p style="text-align: center;"><label for="password" class="fa fa-key"></label></p>
+    <input type="password"  class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+  </div>
+ 
+  <button type="submit" class="btn-lg btn-block btn btn-success btn-sm">Submit</button>
+</form>
+<form class="signupForm hideSignup" action="/customer_signup" method="post">
+<div>
+    
+    <input type="text" pattern="[4][2][2][0][1][-]\d{8}[-][0-9]$"  class="form-control" name="cnic" id="exampleInputEmail1" placeholder="CNIC 42201-xxxxxxxx-x" required>
+  </div>
+	<div>
+  	
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email" required>
+  </div>
+  <div>
+    <input type="password"  class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+  </div>
+ 	<div>
+    <input type="text"  class="form-control" name="first_name"  placeholder="First Name">
+  </div>
+  <div>
+    <input type="text"  class="form-control" name="last_name"  placeholder="Last Name">
+  </div>
+  <div>
+    <input type="text"  class="form-control" name="Address"  placeholder="Address">
+  </div>
+  <div>
+    <input type="text"  class="form-control" name="country"  placeholder="Country">
+  </div>
+  <button type="submit" class="btn-lg btn-block btn btn-success btn-sm">Submit</button>
+
+</form>
+</div>
+<script type="text/javascript" src="scripts/loginSignup.js"></script>
+
+<%- include ./partials/footer.ejs %>

@@ -1,0 +1,41 @@
+@media only screen and (min-width: 700px){
+
+
+div.footer,div.footer p{
+	background-color: #1c2b3b;
+	color: white;
+	margin: 0px;
+	padding:0px;
+	font-size: 1.5vw;
+	text-align: center;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+}
+@media only screen and (min-width:501px) and (max-width: 700px){
+div.footer,div.footer p{
+	background-color: #1c2b3b;
+	color: white;
+	margin: 0px;
+	padding:0px;
+	font-size: 2.5vw;
+	text-align: center;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}	
+}
+@media only screen and (min-width:280px) and (max-width: 504px){
+	div.footer,div.footer p{
+		background-color: #1c2b3b;
+	color: white;
+	margin: 0px;
+	padding:0px;
+	font-size: 3.5vw;
+	text-align: center;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	}
+}

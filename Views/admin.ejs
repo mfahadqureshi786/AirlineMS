@@ -1,0 +1,113 @@
+
+<%- include ./partials/header.ejs %>
+
+<html>
+<head>
+  <title>Add Flight</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="styles/footer.css"> 
+  <link rel="stylesheet" type="text/css" href="styles/addintoflight.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+<div class="topnav" id="myTopnav">
+<div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
+ 
+  <a href="/adminLogin">Signout</a>
+  <a href="AdminFlightDataBase">Scheduled Flights</a>
+  <a href="admin_type=req">Pending Request</a>
+  <a href="cancelRequest_type=req ">Delete Flights</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+ </div>
+</div>
+<div>
+ <p><h5>Welcome to SkyTek! World's leading place for your ease in travelling by Air.</h5></p>
+</div>
+
+
+<div class="table-responsive-xl">
+
+<table id="Flights">
+  <tr>
+    <th>Airline ID</th>
+    <th>Flight Number</th>
+    
+    <th>Date And Time</th>
+    <th>STATUS</th>
+    
+  </tr>
+ 
+
+  <tr>
+                <% for(i=0;i<adminRequests.length;i++) { %>    
+                       <form method="GET" action="/admin_accept=<%=adminRequests[i].FLIGHT_NUMBER%>">
+                <td><i>PIA</i></td>      
+          <td><i class="fa fa-check" name="flightNo" value=""> <%=adminRequests[i].FLIGHT_NUMBER %> </i></td>
+          <td><i class="fa fa-check" name="flightStartTime"> <%=adminRequests[i].DEPARTURE_TIME %> </i></td>
+       
+          <td><i class="buttonAccept">  <button class ="buttonAccept"type="submit" >Accept</button> </i></td>
+          
+         <style>
+             
+             .buttonAccept {
+                        background-color: red;
+                        margin: 2px;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 10px;
+                        border-radius: 6px;
+                        }
+                         .comitLink {
+                        background-color: red;
+                        margin: 2px;
+                        border: none;
+                        color: white;
+                        padding: 15px 15px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 10px;
+                        border-radius: 6px;
+                        width: 100%;
+                        font-size: 20px;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                        }
+                        .comitLink:hover{
+                          background-color: darkred;    
+                          color: white;                    }
+                                </style>
+          
+        </form>
+
+        </tr>
+       <% } %>   
+</table>
+<a href="backToAdmin" class="comitLink">Comit</a>
+
+
+</div>
+
+
+</body>
+<%- include ./partials/footer.ejs %>
+
+
+
+
+
+
+
+
+

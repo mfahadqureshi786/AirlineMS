@@ -1,0 +1,210 @@
+<!Doctype html>
+<html>
+<head>
+	<title> Bootstrap Basic</title>
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="styles/project.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+
+<div class="topnav navbar-dark" id="myTopnav">
+ <div class="navbar-brand"><a href="/" style="color:rgb(0, 123, 255);" id="brandPlane" class="fa fa-plane"><span style="color:rgb(0, 123, 255);">SkyTek</span></a>
+ </div>
+ 
+ 
+ 
+ 
+ 
+ <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+  <i class="fa fa-bars"></i>
+ </a>
+ </div> 
+<div class="sidebar">
+  <a href="/">Home</a>
+ <a class="active" href="customer_userProfile">Edit Profile</a>
+ <a href="customer_purchaseHistory">Purchase History</a>
+ 
+ <a href="customer_logout">Signout</a>
+</div>
+<div>
+ <p>
+  <h5>Welcome to SkyTek! World's leading place for your ease in travelling by Air.</h5>  
+ </p>
+</div>
+
+
+<form class = "form1" action="/customer_userProfile" method="POST">  
+  <div class ="container">
+   <div class ="Content-Pannel">
+    <div class = "Header-Pannel">
+     <h4>Personal Information <%=message%></h4>
+    </div>
+    <div class ="container">
+      <div class = "three-cols form-row">
+       
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="FirstName">First Name</Label>
+         <input type="text" class="form-control" id="FirstName" disabled="true" name="FirstName"  value="<%=FirstName%>" Placeholder ="First Name" required>
+        </div>
+       </div>  
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="LastName">Last Name</Label>
+         <input type="text" class="form-control" name="LastName" disabled="true" id="LastName" value="<%=LastName%>" Placeholder ="Last Name" required>
+        </div>
+       </div>          
+      </div>
+    </div>
+    <div class ="container">
+      <div class = "three-cols form-row">
+       <div class = "cols">
+        <div class="form-group">
+         <Label for="DateOfBirth">Date Of Birth</Label>
+         <input class="form-control" type="date" name="DateOfBirth" id="DateOfBirth" value="<%=DateOfBirth%>" Placeholder ="" required>
+        </div>  
+       </div>
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="ContactNumber1">Contact Number </Label>
+         <input type="tel" class="form-control" name="ContactNumber" id="ContactNumber" value="<%=ContactNumber%>" Placeholder ="03xxxxxxxxx" >
+        </div>
+       </div>  
+              
+      </div>  
+    </div>
+   </div> 
+  </div> 
+  <div class ="container">
+   <div class ="Content-Pannel">
+    
+    <div class ="container">
+      <div class = "one-cols form-row">
+       <div class = "cols">
+        <div class="form-group">
+         <Label for="City">Address</Label>
+         <input type="text" class="form-control" id="Address" disabled="true" name="Address" value="<%=Address%>" Placeholder ="Karachi" required>
+        </div>  
+       </div>
+              
+      </div>  
+    </div>
+   </div>
+  </div> 
+  <div class ="container">
+   <div class="Content-Panel">
+    <div class="Header-Panel">
+     <h4>Email</h4>
+    </div>
+    <div class ="container"> 
+      <div class = "three-cols form-row">
+       <div class = "cols">
+        <div class="form-group">
+         <Label for="CurrentEmail">Current Email</Label>
+         <input type="email" class="form-control" name="CurrentEmail" disabled="true" id="CurrentEmail" value="<%=CurrentEmail%>" Placeholder ="abc@gmail.com" required>
+        </div>  
+       </div>
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="NewEmail">New Email</Label>
+         <input type="email" class="form-control" id="NewEmail" name="NewEmail" Placeholder ="abc@gmail.com" >
+        </div>
+       </div>
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="ConfirmEmail">Confirm Email</Label>
+         <input type="email" class="form-control" id="ConfirmEmail" name="ConfirmEmail" Placeholder ="abc@gmail.com" >
+        </div>
+       </div>          
+      </div>  
+    </div>
+   </div>
+  </div>
+  <div class ="container">
+   <div class="Content-Panel">
+    <div class="Header-Panel">
+     <h4>Password</h4>
+    </div>
+    <div class ="container">
+      <div class = "two-cols form-row">
+       <div class = "cols">
+        <div class="form-group">
+         <Label for="Password">Current Password</Label>
+         <input type="password" class="form-control" id="Password" name="Password" Placeholder ="abc1234!@#$" required>
+        </div>  
+       </div>
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="NewPassword">New Password</Label>
+         <input type="password" class="form-control" id="NewPassword" name="NewPassword" Placeholder ="abc1234!@#$">
+        </div>
+       </div>
+      </div>  
+    </div>
+   </div>
+  </div>
+  <div class ="container">
+   <div class="Content-Panel">
+    <div class="Header-Panel">
+     <h4>Card</h4>
+    </div>
+    <div class ="container"> 
+     <div class = "two-cols form-row">
+      <div class = "cols">
+       <div class="form-group">
+        <Label for="CreditCard">Credit Card No</Label>
+        <input type="text" class="form-control" id="CreditCard" name="CreditCard"  value="<%=CreditCard%>" Placeholder ="xxxxxxxxx" >
+       </div>  
+      </div>
+      <div class = "cols">
+       <div class = "form-group">
+        <Label for="Credit">Amount In Credit Card</Label>
+        <input type="text" class="form-control" id="Credit" name="Credit" value="<%=Credit%>" Placeholder ="10000000" >
+       </div>
+      </div>
+     </div> 
+     <div class = "two-cols form-row">
+      <div class = "cols">
+       <div class="form-group">
+        <Label for="DebitCard">Debit Card No</Label>
+        <input type="text" class="form-control" id="DebitCard" name="DebitCard"  Placeholder ="xxxxxxxxx" >
+       </div>  
+      </div>
+      <div class = "cols">
+       <div class = "form-group">
+        <Label for="Debit">Amount In Debit Card</Label>
+        <input type="number" class="form-control" id="Debit" name="Debit" Placeholder ="10000000" >
+       </div>
+      </div>       
+     </div>  
+    </div>
+   </div>
+  </div>
+  <div class ="container">
+   <input type="submit" class="btn btn-info" value="Submit" id="submit">
+  </div>
+</form>
+
+
+
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>

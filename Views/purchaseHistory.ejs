@@ -1,0 +1,89 @@
+
+<%- include ./partials/header.ejs %>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles/navBar.css">
+<link rel="stylesheet" type="text/css" href="styles/footer.css">
+     <link rel="stylesheet" href="styles/purchaseHistory.css">
+     
+</head>
+
+
+<body>
+	 <nav id="myNavBar"class="navbar navbar-expand-lg navbar-dark">
+  <div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:rgb(0, 123, 255);">SkyTek</span></a></div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+       <ul class="navbar-nav ml-auto">
+        <li><a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a></li>
+      
+      <li><a class="nav-item nav-link" href="login">Login</a></li>
+      <li><a class="nav-item nav-link" href="#">Check Flights</a></li>
+      <li><a class="nav-item nav-link" href="#">Ticket Reservation</a></li>
+      </ul>
+    
+  </div>
+</nav>  
+            
+        <div class="side">                    
+                <div class="sidebar">
+                    <a href="customer_userProfile">Edit Profile</a>
+                    <a href="customer_purchaseHistory">Purchase History</a>
+                   
+                    <a href="#Signout">Signout</a>
+                </div>
+        </div>
+           
+        <div class="main">  
+              <div class="content">
+                       <div style="overflow-x:auto;">
+                           <table >
+                              <tr>
+                                      <th style="width:12% " >Ticket ID</th>
+                                      <th  style="width:12%" >Ticket class</th>
+                                      <th   style="width:12%"  >Amount</th>
+                                      <th  style="width:12%" >CNIC</th>
+                                     
+                              </tr>
+                              <tr>
+                                
+                                      <td><i class="fa fa-check">k173877</i></td>
+                                <td><i class="fa fa-check">Economy</i></td>
+                                <td><i class="fa fa-check">$140.000</i></td>
+                                <td><i class="fa fa-check">K173924</i></td>
+                                
+              
+                              </tr>
+                              <tr>
+                                      <td><i class="fa fa-check">k173877</i></td>
+                                      <td><i class="fa fa-check">Economy</i></td>
+                                      <td><i class="fa fa-check">$140.000</i></td>
+                                      <td><i class="fa fa-check">K173924</i></td>
+                              </tr>
+                           
+                              <tr>
+                                      <td><i class="fa fa-check">k173877</i></td>
+                                <td><i class="fa fa-check">Economy</i></td>
+                                <td><i class="fa fa-check">$140.000</i></td>
+                                <td><i class="fa fa-check">K173924</i></td>
+                    
+                                    </tr>
+                          
+                          
+                          </table>
+                           
+              
+                      </div>
+              
+                
+              </div>
+        </div>
+</body>
+
+ 
+
+
+<%- include ./partials/footer.ejs %>

@@ -1,0 +1,38 @@
+*{
+	margin: 0px;
+	padding: 0px;
+
+}
+body{
+	background-color: #e6eaed;
+}
+#myNavBar{
+	font-size: 18px;
+}
+div.formDiv{
+	font-size: 1rem; !important;
+}
+.FormDiv{
+	width: 280px;
+	
+    margin:5% auto;
+}
+.hideLogin{
+display: none;
+}
+.hideSignup{
+display: none;
+}
+label.fa-user{
+	width: 16px;
+}
+button[name='signupSwitch']{
+	background-color: #f2c97e;
+	margin-bottom: 5px;
+}
+button[name='signupSwitch']:hover,button[name='signupSwitch']:active{
+	background-color: #f7b948;
+}
+button[type='submit']{
+
+}

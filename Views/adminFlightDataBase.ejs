@@ -1,0 +1,73 @@
+<%- include ./partials/header.ejs %>
+
+
+<html>
+<head>
+  <title>Add Flight</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="styles/footer.css"> 
+  <link rel="stylesheet" type="text/css" href="styles/addintoflight.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+<div class="topnav" id="myTopnav">
+<div class="navbar-brand"><a href="/" id="brandPlane" class="fa fa-plane"><span style="color:#FF1493;">SkyTek</span></a></div>
+ 
+<a href="/adminLogin">Signout</a>
+  <a href="AdminFlightDataBase">Scheduled Flights</a>
+  <a href="admin_type=req">Pending Request</a>
+  <a href="cancelRequest_type=req ">Delete Flights</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+ </div>
+</div>
+<div>
+ <p><h5>Welcome to SkyTek! World's leading place for your ease in travelling by Air.</h5></p>
+</div>
+<div class="table-responsive-xl">
+
+<table id="Flights">
+  <tr>
+    <th>Airline ID</th>
+    <th>Source</th>
+    <th>Date And Time</th>
+    
+  </tr>
+ 
+<tr>
+    <% for(i=0;i<flightAdded.length;i++) { %>    
+                                             
+      
+      
+      <td> <%=flightAdded[i].FLIGHT_NUMBER %> </td>
+      <td> <%=flightAdded[i].DEPARTURE_TIME %> </td>
+      <td><%=flightAdded[i].FLIGHT_SOURCE %> </td>  
+</tr>
+    <% } %> 
+</table>
+
+
+</div>
+
+
+</body>
+<%- include ./partials/footer.ejs %>
+
+
+
+
+
+
+
+
+
+
+

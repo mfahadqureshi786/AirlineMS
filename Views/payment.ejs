@@ -1,0 +1,141 @@
+<html>
+<head>
+  <link rel="stylesheet" href="styles/payment.css">
+</head>
+
+
+<body>
+    <div class="sidebar">
+        <a href="/">Home</a>
+         <%       if (IsloggedIn==false){ %>
+        <a class="signin" href="/customer_login">Login</a>
+        <%   } else {  %>
+<a class="signout" href="/customer_logout">Logout</a>
+          <%    }  %>
+        
+        
+        
+      </div>
+      
+      <!-- Page content -->
+      
+      
+      <div class="content">
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+          <div class="col-50">
+            
+           
+            <label for="fname" class="label">Accepted Cards</label>
+            <div>
+                <img src="assets/1.jpg" alt="" height="80px">
+                <img src="assets/2.png" alt=""  height="80px" width="120px">
+                <img src="assets/3.jpg" alt=""  height="80px">
+                <img src="assets/4.png" alt=""  height="80px">
+            </div>
+            
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <h4><%= message %><h4>
+            <form action="payment" method="POST">
+            <%  var total=members.adults+members.children+members.infants-1;%>
+            <%       if (IsloggedIn==false){total++; }     %>
+<% for(var i=0;i<total;i++) { %>
+            <div class ="container">
+         <h4> Passenger <%=i+1%> Details</h4>
+      <div class = "three-cols form-row">
+       
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="FirstName">First Name</Label>
+         <input type="text" class="form-control" id="FirstName"  name="FirstName"  value="" Placeholder ="First Name" required>
+        </div>
+       </div>  
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="LastName">Last Name</Label>
+         <input type="text" class="form-control" name="LastName"  id="LastName" value="" Placeholder ="Last Name" required>
+        </div>
+       </div>   
+       <div class = "cols">
+        <div class = "form-group">
+         <Label for="PassportNumber">Passport Number</Label>
+         <input type="text" class="form-control" name="PassportNumber"  id="PassportNumber" value="" Placeholder ="Passport Number" required>
+        </div>
+       </div>        
+      </div>
+    </div>
+    <% }  %>
+    <div class="container">
+            <h4> Card Details</h4>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <label for="expmonth">Exp Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="10">
+  
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <input type="text" id="expyear" name="expyear" placeholder="2018">
+              </div>
+              <div class="col-50">
+                <label for="csv">CSV</label>
+                <input type="text" id="csv" name="csv" placeholder="352">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-33" style="padding:0px 16px;">
+                <label for="Adults">Adults</label>
+                <input type="text" id="Adults" name="Adults" value="<%= members.adults %>" disabled="true">
+              </div>
+              <div class="col-33" style="padding:0px 16px;">
+                <label for="Children">Children</label>
+                <input type="text" id="Children" name="Children" value="<%= members.children %>" disabled="true">
+              </div>
+              <div class="col-33" style="padding:0px 16px;">
+                <label for="Members">Infants</label>
+                <input type="text" id="Infants" name="Infants" value="<%= members.infants %>" disabled="true">
+              </div>
+            </div>
+             <div class="row">
+              <div class="col" style="padding:0px 16px;">
+                <label for="price">Total Price</label>
+                <input type="text" id="totalPrice" name="price" value="<%= totalPrice %>" disabled="true">
+              </div>
+            </div>
+          </div>
+           
+              <input type="checkbox"  name="confirmation" required>Confirm
+            
+            </div>
+            <input type="submit" value="Pay" class="btn">
+      </div>
+</form>
+     
+     
+     
+     
+     
+      
+</body>
+</html>
